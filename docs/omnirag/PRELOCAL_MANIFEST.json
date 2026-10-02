@@ -1,0 +1,17 @@
+{
+  "project": "OmniRAG-Agent",
+  "prepared_from": "RAGFlow 0.27.2",
+  "upstream_archive_commit": "a024bea0cd93f39e6652a42bf84dd20c55bc560b",
+  "prepared_date": "2026-09-12",
+  "status": "pre-local implementation prepared; no live RAGFlow runtime claim",
+  "baseline_core_modified": false,
+  "default_runtime_profile": "baseline_python_es",
+  "default_model_profile": "research_balanced",
+  "phase2_patch_prepared": true,
+  "phase2_patch_applied": false,
+  "future_feature_flags": {
+    "OMNIRAG_ADAPTIVE_RETRIEVAL": 0,
+    "OMNIRAG_EVIDENCE_VERIFIER": 0,
+    "OMNIRAG_MEMORY_POLICY": 0
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "model_profile": "research_balanced",
+  "models": {
+    "description": "Recommended research profile. Keeps the embedding model small and reproducible, uses an 8B VLM for multimodal reasoning, and adds a dedicated reranker when resources allow.",
+    "chat": {
+      "provider": "VLLM",
+      "model": "Qwen/Qwen3-VL-8B-Instruct",
+      "role": [
+        "chat",
+        "vision"
+      ],
+      "base_url_env": "OMNIRAG_CHAT_BASE_URL",
+      "api_key_env": "OMNIRAG_CHAT_API_KEY"
+    },
+    "embedding": {
+      "provider": "Builtin",
+      "model": "Qwen/Qwen3-Embedding-0.6B",
+      "transport": "TEI",
+      "base_url": "http://tei:80"
+    },
+    "rerank": {
+      "enabled": true,
+      "provider": "VLLM",
+      "model": "Qwen/Qwen3-Reranker-0.6B",
+      "base_url_env": "OMNIRAG_RERANK_BASE_URL",
+      "api_key_env": "OMNIRAG_RERANK_API_KEY"
+    }
+  },
+  "runtime_profile": "baseline_python_es",
+  "runtime": {
+    "api_proxy_scheme": "python",
+    "doc_engine": "elasticsearch",
+    "metadata_db": "mysql",
+    "object_storage": "minio",
+    "cache": "redis",
+    "message_queue": "nats",
+    "deepdoc_device": "cpu",
+    "tei_profile": "tei-cpu",
+    "jaeger": false,
+    "sandbox": false,
+    "mcp_server": false,
+    "purpose": "Phase-1 untouched baseline"
+  },
+  "phase_order": [
+    "static validation",
+    "copy baseline env overlay and set strong local secrets",
+    "start RAGFlow dependencies and TEI",
+    "configure chat/vision endpoint",
+    "run smoke test",
+    "collect Phase-1 fixed-weight retrieval baseline",
+    "archive Phase-1 manifest/report",
+    "apply Phase-2 adaptive patch",
+    "run adaptive ablations"
+  ],
+  "must_remain_disabled_before_baseline": {
+    "OMNIRAG_ADAPTIVE_RETRIEVAL": "0",
+    "OMNIRAG_EVIDENCE_VERIFIER": "0",
+    "OMNIRAG_MEMORY_POLICY": "0"
+  }
+}

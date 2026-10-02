@@ -1,0 +1,10 @@
+# Separate Phase-6 training environment; do not inject into the RAGFlow runtime
+# until GPU/platform compatibility is checked locally.
+transformers>=5.17.0,<6
+peft>=0.21.0,<1
+trl>=1.13.0,<2
+datasets>=5.0.1,<6
+accelerate>=1.0,<2
+bitsandbytes>=0.50.2,<1
+# Install a platform-appropriate PyTorch build separately. bitsandbytes currently
+# requires PyTorch >=2.4 and Python >=3.10; RAGFlow itself requires Python 3.13.

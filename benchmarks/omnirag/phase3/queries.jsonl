@@ -1,0 +1,18 @@
+{"id": "mm01", "category": "visual_topology", "question": "In Figure A, which sensors connect directly to Gateway-G7?", "expected_chunk": "mm-topology", "expected_markers": ["Sensor-A", "Sensor-B"]}
+{"id": "mm02", "category": "visual_topology", "question": "What management port is printed below Gateway-G7 in the topology image?", "expected_chunk": "mm-topology", "expected_markers": ["9443"]}
+{"id": "mm03", "category": "visual_chart", "question": "Which quarter has the highest sales in Figure B?", "expected_chunk": "mm-sales", "expected_markers": ["Q4", "95"]}
+{"id": "mm04", "category": "visual_chart", "question": "What is the Q3 sales value shown on the chart?", "expected_chunk": "mm-sales", "expected_markers": ["64"]}
+{"id": "mm05", "category": "visual_chart", "question": "At what time does the p95 latency peak in Figure C?", "expected_chunk": "mm-latency", "expected_markers": ["14:00", "420ms"]}
+{"id": "mm06", "category": "visual_table", "question": "What Recall@5 does OmniRAG Multimodal achieve in Table D?", "expected_chunk": "mm-ablation", "expected_markers": ["91.3%"]}
+{"id": "mm07", "category": "visual_table", "question": "Compare Hybrid RAG and OmniRAG Multimodal Recall@5 from the table.", "expected_chunk": "mm-ablation", "expected_markers": ["84.6%", "91.3%"]}
+{"id": "mm08", "category": "visual_dashboard", "question": "What is the active security alert shown in the dashboard?", "expected_chunk": "mm-security", "expected_markers": ["DNS Tunneling"]}
+{"id": "mm09", "category": "visual_dashboard", "question": "Which device is the source of the HIGH severity alert?", "expected_chunk": "mm-security", "expected_markers": ["Sensor-B"]}
+{"id": "mm10", "category": "visual_dashboard", "question": "What destination IP is visible for the alert?", "expected_chunk": "mm-security", "expected_markers": ["198.51.100.24"]}
+{"id": "mm11", "category": "visual_workflow", "question": "In Figure F, which component comes immediately after Tool Agent?", "expected_chunk": "mm-workflow", "expected_markers": ["Critic"]}
+{"id": "mm12", "category": "visual_workflow", "question": "What can the Critic request before the Answer stage?", "expected_chunk": "mm-workflow", "expected_markers": ["re-retrieval"]}
+{"id": "mm13", "category": "crosslingual_visual", "question": "图B中销量最高的是哪个季度？", "expected_chunk": "mm-sales", "expected_markers": ["Q4", "95"]}
+{"id": "mm14", "category": "crosslingual_visual", "question": "安全看板中的告警源设备是什么？", "expected_chunk": "mm-security", "expected_markers": ["Sensor-B"]}
+{"id": "mm15", "category": "crosslingual_visual", "question": "图F中 Tool Agent 后面的节点是什么？", "expected_chunk": "mm-workflow", "expected_markers": ["Critic"]}
+{"id": "mm16", "category": "mixed_evidence", "question": "Which benchmark system has both the best Recall@5 and MRR?", "expected_chunk": "mm-ablation", "expected_markers": ["OmniRAG Multimodal", "91.3%", "0.87"]}
+{"id": "mm17", "category": "mixed_evidence", "question": "Which sensor in the topology is also named as the source device on the security dashboard?", "expected_chunks": ["mm-topology", "mm-security"], "expected_markers": ["Sensor-B"]}
+{"id": "mm18", "category": "mixed_evidence", "question": "The dashboard first sees the alert at what time, and what is the latency chart's peak time?", "expected_chunks": ["mm-security", "mm-latency"], "expected_markers": ["14:07 UTC", "14:00"]}

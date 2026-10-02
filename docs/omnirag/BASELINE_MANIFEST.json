@@ -1,0 +1,18 @@
+{
+  "project": "OmniRAG-Agent",
+  "upstream_project": "RAGFlow",
+  "upstream_version": "0.27.2",
+  "upstream_archive_commit": "a024bea0cd93f39e6652a42bf84dd20c55bc560b",
+  "baseline_date": "2026-09-10",
+  "phase": "Phase 1 - Baseline and source map",
+  "selected_runtime": "python",
+  "api_proxy_scheme": "python",
+  "doc_engine": "elasticsearch",
+  "python_requirement": ">=3.13,<3.14",
+  "frontend": "React + TypeScript + Vite",
+  "notes": [
+    "The uploaded GitHub ZIP does not contain .git metadata.",
+    "The archive comment contains the upstream commit hash recorded above.",
+    "No RAGFlow core behavior is modified in Phase 1; only OmniRAG documentation and helper scripts are added."
+  ]
+}

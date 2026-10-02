@@ -1,0 +1,6 @@
+fastapi>=0.128,<0.129
+uvicorn[standard]>=0.38,<0.49
+llama-index-core>=0.14.24,<0.15
+httpx>=0.28,<0.29
+# Optional real local embeddings:
+# llama-index-embeddings-huggingface>=0.6,<1

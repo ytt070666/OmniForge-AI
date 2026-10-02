@@ -1,0 +1,60 @@
+--- a/api/db/services/dialog_service.py
++++ b/api/db/services/dialog_service.py
+@@ -21,6 +21,9 @@
+ import uuid
+ from copy import deepcopy
+ from rag.advanced_rag.agentic_rag import RAGTools
++from extensions.omnirag.multimodal.runtime import maybe_fuse_multimodal
++from extensions.omnirag.multimodal.retrieved_images import load_retrieved_image_bytes, to_data_uri
++from extensions.omnirag.verifier.runtime import maybe_verify_answer
+ 
+ logger = logging.getLogger(__name__)
+ from datetime import datetime, timezone
+@@ -780,6 +783,29 @@
+             web_res = web_search.retrieve_chunks(" ".join(questions))
+             kbinfos["chunks"].extend(web_res["chunks"])
+             kbinfos["doc_aggs"].extend(web_res["doc_aggs"])
++
++        # OmniRAG Phase 3: optional visual sidecar retrieval + query-adaptive
++        # weighted RRF. The runtime is a no-op unless explicitly enabled.
++        kbinfos, omnirag_multimodal_meta = await maybe_fuse_multimodal(
++            " ".join(questions),
++            kbinfos,
++            dialog.kb_ids,
++            scoped_doc_ids,
++            dialog.top_n,
++        )
++        if omnirag_multimodal_meta.get("enabled"):
++            if omnirag_multimodal_meta.get("used_visual"):
++                retrieved_images = await load_retrieved_image_bytes(
++                    kbinfos.get("chunks", []),
++                    settings.STORAGE_IMPL.get,
++                )
++                if llm_model_config["model_type"] == "chat":
++                    image_attachments.extend(to_data_uri(blob) for blob in retrieved_images)
++                else:
++                    image_files.extend(retrieved_images)
++                omnirag_multimodal_meta["retrieved_image_count"] = len(retrieved_images)
++            kbinfos["omnirag_multimodal_runtime"] = omnirag_multimodal_meta
++
+         if prompt_config.get("use_kg"):
+             default_chat_model = get_tenant_default_model_by_type(dialog.tenant_id, LLMType.CHAT)
+             ck = await settings.kg_retriever.retrieval(
+@@ -939,7 +965,16 @@
+             )
+             langfuse_generation.end()
+ 
+-        return {"answer": think + answer, "reference": refs, "prompt": re.sub(r"\n", "  \n", prompt), "created_at": time.time()}
++        # OmniRAG Phase 3 reports claim/evidence confidence as additive
++        # metadata. It does not rewrite or suppress the answer in this phase.
++        omnirag_verification = maybe_verify_answer(answer, kbinfos.get("chunks", []))
++        return {
++            "answer": think + answer,
++            "reference": refs,
++            "prompt": re.sub(r"\n", "  \n", prompt),
++            "created_at": time.time(),
++            "omnirag_verification": omnirag_verification,
++        }
+ 
+     if langfuse_tracer:
+         try:

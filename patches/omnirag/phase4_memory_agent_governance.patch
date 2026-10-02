@@ -1,0 +1,342 @@
+--- a/api/db/services/dialog_service.py
++++ b/api/db/services/dialog_service.py
+@@ -24,6 +24,8 @@
+ from extensions.omnirag.multimodal.runtime import maybe_fuse_multimodal
+ from extensions.omnirag.multimodal.retrieved_images import load_retrieved_image_bytes, to_data_uri
+ from extensions.omnirag.verifier.runtime import maybe_verify_answer
++from extensions.omnirag.agent.ragflow_governance import strategy_record_from_governance
++from extensions.omnirag.agent.ragflow_memory import persist_strategy_memory, recall_planning_memory
+ 
+ logger = logging.getLogger(__name__)
+ from datetime import datetime, timezone
+@@ -2104,6 +2106,30 @@
+             metas_loader=lambda: DocMetadataService.get_flatted_meta_by_kbs(dialog.kb_ids),
+         )
+ 
++    # OmniRAG Phase 4: long-term memory is optional planning context only.
++    # It is never injected into the evidence pool and therefore cannot become a
++    # citation source. Memory IDs are explicit inputs so an unconfigured dialog
++    # keeps RAGFlow's native behavior byte-for-byte apart from these no-op hooks.
++    raw_memory_ids = kwargs.get("omnirag_memory_ids", prompt_config.get("omnirag_memory_ids", []))
++    if isinstance(raw_memory_ids, str):
++        omnirag_memory_ids = [mid.strip() for mid in raw_memory_ids.split(",") if mid.strip()]
++    elif isinstance(raw_memory_ids, (list, tuple, set)):
++        omnirag_memory_ids = [str(mid).strip() for mid in raw_memory_ids if str(mid).strip()]
++    else:
++        omnirag_memory_ids = []
++
++    omnirag_memory_items, omnirag_memory_context = await recall_planning_memory(
++        messages[-1].get("content", ""),
++        omnirag_memory_ids,
++        tenant_id=str(getattr(dialog, "tenant_id", "") or ""),
++        user_id=str(kwargs.get("user_id") or ""),
++        agent_id=str(getattr(dialog, "id", "") or ""),
++        session_id=str(kwargs.get("session_id") or ""),
++    )
++    reasoning_system_prompt = _render_reasoning_system_prompt(dialog, prompt_config, kwargs)
++    if omnirag_memory_context:
++        reasoning_system_prompt = f"{reasoning_system_prompt}\n\n{omnirag_memory_context}" if reasoning_system_prompt else omnirag_memory_context
++
+     rag_tools = RAGTools(
+         tenant_ids,
+         chat_mdl,
+@@ -2116,7 +2142,8 @@
+         do_refer=False,
+         thinking_mode=thinking_mode,
+         text_attachments_content=text_attachments_content,
+-        system_prompt=_render_reasoning_system_prompt(dialog, prompt_config, kwargs),
++        original_user_question=messages[-1].get("content", ""),
++        system_prompt=reasoning_system_prompt,
+         similarity_threshold=dialog.similarity_threshold,
+         vector_similarity_weight=dialog.vector_similarity_weight,
+         top_n=dialog.top_n,
+@@ -2169,7 +2196,34 @@
+         if answer.lower().find("invalid key") >= 0 or answer.lower().find("invalid api") >= 0:
+             answer += " Please set LLM API-Key in 'User Setting -> Model providers -> API-Key'"
+ 
+-        return {"answer": think + answer, "reference": refs, "prompt": "", "created_at": time.time()}
++        governance = getattr(rag_tools, "_omnirag_governance", {"enabled": False, "action": "disabled"})
++        governance_history = list(getattr(rag_tools, "_omnirag_governance_history", []) or [])
++        omnirag_agent = {
++            "governance": governance,
++            "governance_rounds": len(governance_history),
++            "planning_memory_count": len(omnirag_memory_items),
++            "memory_write": {"attempted": False, "ok": True, "message": "not requested"},
++        }
++        if governance.get("enabled") and governance.get("action") == "accept" and omnirag_memory_ids:
++            strategy_record = strategy_record_from_governance(governance, governance_history)
++            if strategy_record:
++                ok, message = await persist_strategy_memory(
++                    omnirag_memory_ids,
++                    tenant_id=str(getattr(dialog, "tenant_id", "") or ""),
++                    user_id=str(kwargs.get("user_id") or ""),
++                    agent_id=str(getattr(dialog, "id", "") or ""),
++                    session_id=str(kwargs.get("session_id") or ""),
++                    strategy_record=strategy_record,
++                )
++                omnirag_agent["memory_write"] = {"attempted": True, "ok": bool(ok), "message": str(message)}
++
++        return {
++            "answer": think + answer,
++            "reference": refs,
++            "prompt": "",
++            "created_at": time.time(),
++            "omnirag_agent": omnirag_agent,
++        }
+ 
+     # The agentic-search graph composes the final cited answer itself, so we
+     # stream its tokens straight to the client instead of relaying a tool
+--- a/rag/advanced_rag/agentic_rag.py
++++ b/rag/advanced_rag/agentic_rag.py
+@@ -61,6 +61,13 @@
+     sufficiency_select,
+ )
+ from rag.utils.web_search_conn import WebSearchProvider
++from extensions.omnirag.agent.ragflow_governance import (
++    abstention_answer,
++    governance_enabled,
++    merge_critic_into_rag_verdict,
++    retry_query_from_governance,
++    review_agentic_result,
++)
+ 
+ # Tokens held back from the model's context when fitting retrieved evidence
+ # into the sufficiency / follow-up prompts. The evidence sits in the MIDDLE of
+@@ -318,6 +325,11 @@
+         # loop (via `rag`) to decide whether to re-run research and how to rephrase
+         # the next question. Set in run_agentic_rag.
+         self._rag_verdict: dict | None = None
++        # OmniRAG Phase 4 keeps the post-generation governance history separate
++        # from RAGFlow's native sufficiency verdict. The list is populated only
++        # when the feature flag is enabled and is exposed as response metadata.
++        self._omnirag_governance: dict = {"enabled": False, "action": "disabled"}
++        self._omnirag_governance_history: list[dict] = []
+         # Outer-loop guardrail: count of consecutive rag calls that ended
+         # UNANSWERABLE / INSUFFICIENT (evidence conflicts or missing). Once this
+         # exceeds a threshold, `rag` tells the outer LLM to stop re-running, so we
+@@ -817,34 +829,40 @@
+     async def rag(self, question: str) -> str:
+         """Answer a question with evidence from the knowledge bases and the web.
+ 
+-        Runs the full agentic-search pipeline: it formalises the question,
+-        narrows the document scope, analyses keywords, retrieves evidence,
+-        checks whether the evidence is sufficient (looping with follow-up
+-        searches when it is not), and finally composes a cited answer.
++        RAGFlow's native graph owns planning, search, sufficient-context review,
++        query rewriting, and cited answer composition. When OmniRAG governance
++        is enabled, the completed answer is buffered, checked by the Phase-3
++        evidence verifier, and (only when necessary) the native graph is rerun
++        with one bounded critic-generated focus query before anything is exposed
++        as the terminal answer.
+ 
+         :param question: a self-contained natural-language question.
+ 
+-        :returns: the composed answer with inline citation markers.
++        :returns: the composed answer with inline citation markers, or a
++            transparent abstention when the evidence gates cannot be satisfied.
+         """
+         from rag.advanced_rag.agentic_rag_graph import run_agentic_rag
+ 
+         if self.tool_started_sink is not None:
+             self.tool_started_sink()
++        governance_on = governance_enabled()
++        if governance_on:
++            # Per terminal-tool invocation. This deliberately does not persist
++            # across user turns; long-term experience is handled by RAGFlow's
++            # memory store after an accepted run.
++            self._omnirag_governance = {"enabled": False, "action": "disabled"}
++            self._omnirag_governance_history = []
++
+         # Per-call instrumentation: each `rag` invocation gets its own stats
+         # object (bound through the per-task ContextVar), so parallel calls
+         # report independent usage instead of one shared cumulative sink.
+         with using_stats(LLMUsageStats()) as call_stats:
+-            # P0: reuse a near-identical question's cached answer instead of re-running
+-            # the whole agentic graph. Significant-keyword overlap (>= min_overlap AND
+-            # >=2 shared words, and matching numbers) collapses the re-ask pattern
+-            # while leaving genuinely different questions untouched. Attachments bypass
+-            # the cache (their content is appended to the question message below).
+-            if question and not self.text_attachments_content:
++            # Preserve RAGFlow's original near-duplicate cache when governance
++            # is disabled. A governed run bypasses this legacy cache because the
++            # cache stores only answer text, not the evidence/verifier state
++            # required to prove that the answer passed the current gates.
++            if not governance_on and question and not self.text_attachments_content:
+                 qk = _question_keywords(question)
+-                # If the last research round was not sufficient, do not reuse a cached
+-                # (similarly-worded) answer — the outer loop asked again because it
+-                # needs more evidence, so re-run the graph instead of returning the
+-                # same incomplete answer (Google "iteration" phase).
+                 last_status = ""
+                 v = getattr(self, "_rag_verdict", None)
+                 if isinstance(v, dict):
+@@ -854,14 +872,16 @@
+                     for cached_q, (cached_answer, cached_gram) in list(self._rag_cache.items()):
+                         if cached_gram and _cache_similar(qk, cached_gram):
+                             shared = len(qk[0] & cached_gram[0])
+-                            _LOG.info("[Agentic RAG] Cache hit — reused prior answer for near-identical question %r (%d shared words); skipped research.", question, shared)
++                            _LOG.info(
++                                "[Agentic RAG] Cache hit — reused prior answer for near-identical question %r (%d shared words); skipped research.",
++                                question,
++                                shared,
++                            )
+                             return cached_answer
+ 
+-            # Prefer the user's ORIGINAL, complete question over the outer model's
+-            # rewritten `question` argument (same-turn only). See
+-            # `_resolve_effective_question` for the rationale — the outer rewrite
+-            # drops the FINAL target of multi-hop questions (Q317 purchaser death,
+-            # Q305 "shortest abbreviation").
++            # Prefer the user's ORIGINAL, complete question over the outer
++            # model's rewritten tool argument. The original caller already has
++            # this safeguard in RAGTools; dialog_service now wires the value in.
+             effective_q = _resolve_effective_question(question or "", self.original_user_question)
+             if effective_q and effective_q != question:
+                 _LOG.info(
+@@ -869,13 +889,108 @@
+                     self.original_user_question[:80],
+                     (question or "")[:80],
+                 )
++
++            if governance_on:
++                current_query = effective_q
++                retries_used = 0
++                seen_focus_queries = set()
++                final = ""
++
++                while True:
++                    focus_key = " ".join((current_query or "").lower().split())
++                    if focus_key in seen_focus_queries:
++                        # A repeated focus query cannot add new information. Do
++                        # not spin; terminate conservatively without exposing the
++                        # previously rejected draft.
++                        governance = dict(self._omnirag_governance or {})
++                        critic = dict(governance.get("critic") or {})
++                        critic["action"] = "abstain"
++                        critic["retry_query"] = ""
++                        critic["reason"] = ((str(critic.get("reason") or "") + "; ") if critic.get("reason") else "") + "retry loop guard: repeated focus query"
++                        governance.update({"enabled": True, "action": "abstain", "critic": critic})
++                        self._omnirag_governance = governance
++                        self._omnirag_governance_history.append(governance)
++                        self._rag_verdict = merge_critic_into_rag_verdict(self._rag_verdict, governance)
++                        final = abstention_answer(self.empty_response)
++                        break
++                    seen_focus_queries.add(focus_key)
++
++                    # Each post-generation retry is a fresh native graph run.
++                    # Avoid undocumented cross-run evidence carry-over; the
++                    # focus query contains the original question and the missing
++                    # targets, so the new run must independently reconstruct a
++                    # citable evidence set.
++                    if retries_used:
++                        self.kbinfos = {"chunks": [], "doc_aggs": []}
++                        self._rag_verdict = None
++
++                    messages = [{"role": "user", "content": current_query}] if current_query else []
++                    if self.text_attachments_content and messages:
++                        messages[-1]["content"] += self.text_attachments_content
++
++                    research = run_agentic_rag(self, messages)
++                    draft = ""
++                    async for kind, delta in _split_think_stream(research):
++                        if kind == "answer":
++                            draft += delta
++                        elif self.answer_sink is not None:
++                            # Progress/reasoning may be streamed immediately;
++                            # candidate answer tokens are held until accepted.
++                            self.answer_sink(delta, True)
++                    draft = re.sub(r"\(\**(ID:\d+)\**\)", r"[\1]", draft)
++
++                    governance = review_agentic_result(
++                        query=effective_q,
++                        answer=draft,
++                        chunks=list(self.kbinfos.get("chunks") or []),
++                        rag_verdict=getattr(self, "_rag_verdict", None),
++                        retries_used=retries_used,
++                    )
++                    self._omnirag_governance = governance
++                    self._omnirag_governance_history.append(governance)
++                    self._rag_verdict = merge_critic_into_rag_verdict(self._rag_verdict, governance)
++                    action = str(governance.get("action") or "")
++
++                    if action == "retrieve_more":
++                        retry_query = retry_query_from_governance(governance)
++                        if not retry_query:
++                            # The critic must never request another graph run
++                            # without a bounded, explicit focus query.
++                            critic = dict(governance.get("critic") or {})
++                            critic["action"] = "abstain"
++                            critic["reason"] = ((str(critic.get("reason") or "") + "; ") if critic.get("reason") else "") + "missing bounded retry query"
++                            governance = {**governance, "action": "abstain", "critic": critic}
++                            self._omnirag_governance = governance
++                            self._omnirag_governance_history[-1] = governance
++                            self._rag_verdict = merge_critic_into_rag_verdict(self._rag_verdict, governance)
++                            final = abstention_answer(self.empty_response)
++                            break
++                        retries_used += 1
++                        current_query = retry_query
++                        if self.answer_sink is not None:
++                            self.answer_sink("\nOmniRAG evidence critic requested one focused verification pass.\n", True)
++                        continue
++
++                    if action == "abstain":
++                        final = abstention_answer(self.empty_response)
++                    else:
++                        final = draft
++                    break
++
++                # `rag` is a terminal tool in dialog_service. Send exactly one
++                # accepted/abstained answer to the client after governance, so a
++                # rejected first draft can never leak into the response stream.
++                if self.answer_sink is not None and final:
++                    self.answer_sink(final, False)
++                call_stats.log()
++                return final
++
++            # -------------------- untouched native behavior --------------------
+             messages = [{"role": "user", "content": effective_q}] if effective_q else []
+             if self.text_attachments_content and messages:
+                 messages[-1]["content"] += self.text_attachments_content
+ 
+-            # Run the inner research executor (the static LangGraph pipeline).
+             research = run_agentic_rag(self, messages)
+-
+             final = ""
+             async for kind, delta in _split_think_stream(research):
+                 if kind == "answer":
+@@ -884,21 +999,9 @@
+                     self.answer_sink(delta, kind == "think")
+             final = re.sub(r"\(\**(ID:\d+)\**\)", r"[\1]", final)
+ 
+-            # Cache the freshly produced answer for later near-identical questions.
+             if question and final and not self.text_attachments_content:
+                 self._rag_cache[question] = (final, _question_keywords(question))
+ 
+-            # Expose the sufficiency verdict to the outer LLM so it can decide whether
+-            # to re-run `rag` from the reported gaps (Google "missing pieces" feedback)
+-            # instead of guessing from the answer text. This is appended to the tool
+-            # result — it does NOT change the final answer (the graph's formalize_answer
+-            # composes that independently from kbinfos).
+-            #
+-            # Outer-loop guardrail: bound useless re-runs. If consecutive rag calls keep
+-            # ending insufficient (UNANSWERABLE / INSUFFICIENT / CONFLICTING), tell the
+-            # outer LLM to STOP re-running and answer from the existing evidence — the
+-            # corpus likely lacks the data, so re-querying different angles won't help
+-            # and only inflates latency / risks timeout.
+             verdict = getattr(self, "_rag_verdict", None)
+             insufficient_statuses = {"UNANSWERABLE", "INSUFFICIENT", "CONFLICTING"}
+             if isinstance(verdict, dict):
+@@ -917,12 +1020,11 @@
+                     hard_txt = ("; hard gaps: " + ", ".join(str(x) for x in hard[:3])) if hard else ""
+                     conf_txt = f"; agent confidence: {conf:.2f}" if isinstance(conf, (int, float)) else ""
+                     fb_txt = f"; feedback: {feedback[:200]}" if feedback else ""
+-                    # Guardrail counter.
+                     if status in insufficient_statuses:
+                         self._consecutive_unanswerable += 1
+                     else:
+                         self._consecutive_unanswerable = 0
+-                    _GUA = 2  # consecutive-insufficient threshold
++                    _GUA = 2
+                     if self._consecutive_unanswerable >= _GUA:
+                         final = f"{final}\n\n[Research status] {status_hint}{missing_txt}{hard_txt}{conf_txt}{fb_txt}. STOP calling rag again: {self._consecutive_unanswerable} consecutive research rounds returned insufficient evidence. The sources likely lack the required data. Give your best answer from the evidence already gathered; do not re-run rag."
+                     else:

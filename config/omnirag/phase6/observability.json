@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "phase": "6",
+  "owner": "OmniRAG extension metrics; RAGFlow remains owner of native Langfuse integration",
+  "capture_raw_prompt": false,
+  "capture_raw_completion": false,
+  "capture_tool_arguments": false,
+  "capture_retrieved_chunk_text": false,
+  "allowed_dimensions": [
+    "trace_id",
+    "session_id_hash",
+    "component",
+    "operation",
+    "model",
+    "status",
+    "query_class",
+    "tool_name",
+    "tool_risk"
+  ],
+  "metrics": [
+    "latency_ms",
+    "input_tokens",
+    "output_tokens",
+    "retrieval_candidates",
+    "tool_calls",
+    "tool_failures",
+    "retry_count",
+    "abstained"
+  ],
+  "costing": {
+    "enabled": false,
+    "note": "No price is invented. Cost is computed only when an explicit local price table is supplied."
+  }
+}

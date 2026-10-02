@@ -1,0 +1,46 @@
+{
+  "phase": "5",
+  "name": "governed_tool_runtime_and_taskspec",
+  "feature_flags_default": {
+    "OMNIRAG_TOOL_GOVERNANCE": false
+  },
+  "tool_policy": {
+    "default_allowed_risks": [
+      "read"
+    ],
+    "allow_destructive_default": false,
+    "allow_open_world_default": false,
+    "max_visible_tools_default": 6,
+    "max_total_calls_default": 8,
+    "max_calls_per_tool_default": 3,
+    "selector_min_score_default": 0.05,
+    "argument_values_stored_in_audit_trace": false,
+    "mcp_annotations_are_authorization": false
+  },
+  "mcp": {
+    "transport_owner": "RAGFlow",
+    "protocol_name": "Model Context Protocol",
+    "reference_server_read_only": true,
+    "new_transport_implementation_claimed": false
+  },
+  "dsl": {
+    "runtime_owner": "RAGFlow Canvas",
+    "taskspec_version": "1.0",
+    "allowed_steps": [
+      "retrieval",
+      "agent",
+      "message"
+    ],
+    "secret_like_fields_allowed": false,
+    "generated_spec_executes_without_validation": false,
+    "secret_like_fields_blocked": true,
+    "arbitrary_secret_value_detection_claimed": false
+  },
+  "integration": {
+    "native_mcp_client_replaced": false,
+    "native_mcp_server_replaced": false,
+    "native_tool_executor_replaced": false,
+    "native_canvas_executor_replaced": false,
+    "agent_tool_binding_hooked": true
+  }
+}

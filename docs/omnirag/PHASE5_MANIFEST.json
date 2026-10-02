@@ -1,0 +1,268 @@
+{
+  "schema_version": 1,
+  "phase": "5",
+  "name": "governed_tools_mcp_and_safe_taskspec",
+  "ragflow_baseline": "0.27.2",
+  "upstream_archive_commit": "a024bea0cd93f39e6652a42bf84dd20c55bc560b",
+  "core_delivery_state": "frozen_phase1_core_unmodified",
+  "patch_application_order": [
+    "phase2_adaptive_retrieval.patch",
+    "phase3_multimodal_verifier.patch",
+    "phase4_memory_agent_governance.patch",
+    "phase5_tool_governance.patch"
+  ],
+  "phase5_core_patch_targets": [
+    "agent/component/agent_with_tools.py"
+  ],
+  "pre_phase5_hashes": {
+    "agent/component/agent_with_tools.py": "181fdb3f2307be50ef18a031b75bcefb4403dc8d706bada63843bd07f480998e"
+  },
+  "post_stack_syntax_tested_hashes": {
+    "rag/nlp/search.py": "5c96ad4364907378b4d579e5a0ec74be3b627f2616c96681198b6bcf1853534d",
+    "api/db/services/dialog_service.py": "1c74b3d71a3778790c25b026ff00d69bedba96aea941ebb373fb2243e6425738",
+    "rag/advanced_rag/agentic_rag.py": "9a4d6b951c064060be3b504b35bd34babe56ffd47346a88384a384d172b5a5ac",
+    "agent/component/agent_with_tools.py": "096520e7820b1412ea2d2707542d3ef9767d4b02d65cf5ac31e2f5d1b2469e63"
+  },
+  "native_owners": {
+    "mcp_transport": "RAGFlow",
+    "tool_execution": "RAGFlow",
+    "workflow_runtime": "RAGFlow Canvas"
+  },
+  "validation": {
+    "phase5_contract_assertions": 11,
+    "phase5_contract_assertions_passed": 11,
+    "omnirag_unit_tests": 56,
+    "omnirag_unit_tests_passed": 56,
+    "synthetic_tool_selector_cases": 10,
+    "synthetic_tool_selector_top1": 1.0,
+    "synthetic_tool_selector_top3": 1.0,
+    "selector_metric_scope": "synthetic_offline_smoke_only_not_agent_task_success",
+    "taskspec_offline_compile": "pass",
+    "patch_stack_apply_and_pycompile": "pass",
+    "phase1_core_integrity": "pass_8_of_8",
+    "agent_tool_owner_frozen_hash": "pass",
+    "native_canvas_parameter_validation": "deferred_until_full_ragflow_runtime",
+    "live_mcp_transport": "not_run_by_user_instruction",
+    "live_llm_tool_calling": "not_run_by_user_instruction",
+    "ruff": "not_available_in_current_execution_environment"
+  },
+  "correctness_guards": [
+    "phase5_feature_flag_disabled_by_default",
+    "default_policy_read_only",
+    "explicit_open_world_denied_by_default",
+    "mcp_annotations_advisory_not_authorization",
+    "write_execute_unknown_denied_by_default",
+    "policy_filter_before_selector",
+    "execution_policy_recheck",
+    "per_query_tool_allowlist",
+    "json_schema_argument_validation",
+    "bounded_total_and_per_tool_calls",
+    "empty_shortlist_clears_stale_provider_binding",
+    "runtime_disable_restores_native_full_binding",
+    "audit_omits_raw_argument_values",
+    "audit_argument_fingerprint_is_ephemeral_hmac_sha256",
+    "audit_error_records_exception_type_not_raw_message",
+    "taskspec_rejects_unknown_fields_and_malformed_dependencies",
+    "taskspec_parameter_types_and_bounds_validated",
+    "taskspec_output_references_allowlisted",
+    "taskspec_all_terminal_branches_must_be_message",
+    "taskspec_generated_agents_cannot_inject_raw_mcp_or_tools"
+  ],
+  "known_boundaries": [
+    "mcp_annotations_do_not_prove_tool_safety",
+    "upstream_ragflow_tool_logging_may_include_argument_values_and_requires_deployment_review",
+    "selector_is_deterministic_preselector_not_semantic_router",
+    "synthetic_selector_fixture_is_not_research_grade",
+    "generic_secret_value_detection_inside_prompt_strings_is_not_claimed",
+    "native_canvas_validation_and_execution_require_full_ragflow_runtime",
+    "reference_mcp_streamable_http_connection_not_yet_executed",
+    "write_execute_approval_workflow_not_implemented_in_phase5"
+  ],
+  "files": [
+    {
+      "path": "artifacts/omnirag/phase5_grounded_qa.compiled.json",
+      "sha256": "05e50d7bdc3dc12e308b8c4cc788f5ba5269be39f1b2bb5f69c9995c6a39ccff",
+      "bytes": 6185
+    },
+    {
+      "path": "artifacts/omnirag/phase5_tool_selection_smoke.json",
+      "sha256": "edaa05b2823d72a587ea1ef9d54efe4767c8cfea924a6fa0a17428ddda5f923f",
+      "bytes": 4090
+    },
+    {
+      "path": "benchmarks/omnirag/phase5/README.md",
+      "sha256": "cedd011fedc3a5b3d6718f6a1c5fbfb02def859fcafc9789d4a8500de370e581",
+      "bytes": 1077
+    },
+    {
+      "path": "benchmarks/omnirag/phase5/taskspec_grounded_qa.json",
+      "sha256": "216bbd765f9a69f5d3e82a7e2235c8521edf320418b874add870777b0eac7d10",
+      "bytes": 933
+    },
+    {
+      "path": "benchmarks/omnirag/phase5/tool_selection_cases.jsonl",
+      "sha256": "b95630a1dc971437caf80b8f9614910a07baf61530cd9f774f090eea5e075fc9",
+      "bytes": 844
+    },
+    {
+      "path": "config/omnirag/phase5.env.example",
+      "sha256": "a98590212c7ae2bd567f2888278a9b2f968ccb0fc7b38394fe3be1cf2444b19a",
+      "bytes": 462
+    },
+    {
+      "path": "config/omnirag/phase5/tool_policy.json",
+      "sha256": "89c507f47f520a37af279501213df20f8f0c0362c2e99b9a7e454fced64ff9a7",
+      "bytes": 821
+    },
+    {
+      "path": "config/omnirag/phase5_tool_governance.json",
+      "sha256": "7af2048aeed91d440149979ed4925e419692d0243e71b8eb8069c26c387dce7e",
+      "bytes": 1317
+    },
+    {
+      "path": "docs/omnirag/PHASE5_ACCEPTANCE_CHECKLIST.md",
+      "sha256": "91f4b3b57b602fd1606b51f4b3c395a5b2f5d0306633a20bbedbd8531a8b8522",
+      "bytes": 1418
+    },
+    {
+      "path": "docs/omnirag/PHASE5_LOCAL_RUN_LATER.md",
+      "sha256": "73f69dc606881c4cb971ff31c64132fff8f5b8b3a9941988a690be5a8e6e08d8",
+      "bytes": 6538
+    },
+    {
+      "path": "docs/omnirag/PHASE5_PRELOCAL_REPORT.md",
+      "sha256": "c043b99523a1d035a9019e782e11f5bf9ccd939cf636e47624d80dcff5f917e7",
+      "bytes": 4161
+    },
+    {
+      "path": "docs/omnirag/PHASE5_TOOL_MCP_DSL_DESIGN.md",
+      "sha256": "ad48e3d9b95bcc398cdfd483cd139c250911f5e69f5654dac91daf56da303586",
+      "bytes": 11016
+    },
+    {
+      "path": "extensions/omnirag/dsl/__init__.py",
+      "sha256": "a4df0ffc88063620f1372320498042d790839398423ec525b671400b2c137561",
+      "bytes": 325
+    },
+    {
+      "path": "extensions/omnirag/dsl/compiler.py",
+      "sha256": "88aa639452e79fb3fc9f17302f844b39108c05b6dd4d61d5c74d2ffac3371d3d",
+      "bytes": 6153
+    },
+    {
+      "path": "extensions/omnirag/dsl/prompt.py",
+      "sha256": "f8bffcd09bee6204de32a94593fd0198f5f6ddfaddd50d8db88457ccee1d8f56",
+      "bytes": 1946
+    },
+    {
+      "path": "extensions/omnirag/dsl/schema.py",
+      "sha256": "fa7802bceddd72c9d1af84d71be74019690ac0dfb1b4d85d8e2915be535a18e9",
+      "bytes": 4558
+    },
+    {
+      "path": "extensions/omnirag/dsl/validator.py",
+      "sha256": "6d177b06c265f582ae80f7100a6e04e1dd0f87215fbd6928a34b1e0a947afbec",
+      "bytes": 10945
+    },
+    {
+      "path": "extensions/omnirag/mcp/__init__.py",
+      "sha256": "1763af1833442d9b7a1ee79b0e1c6e0cdd7238b34671a01d9916155e78dee1ab",
+      "bytes": 157
+    },
+    {
+      "path": "extensions/omnirag/mcp/reference_server.py",
+      "sha256": "038b59b71fa7e0f5732e31d591c6628d8bcfe4af4ff57fd3d9f4f4cc8d3259ce",
+      "bytes": 2806
+    },
+    {
+      "path": "extensions/omnirag/tools/__init__.py",
+      "sha256": "e0576c9cc449fdbd85fe6aba3fc8967058387e2899772b2c34f432ada77b8032",
+      "bytes": 560
+    },
+    {
+      "path": "extensions/omnirag/tools/integration.py",
+      "sha256": "33f8eeeab0abd707b6cf10f824a8361f65a08e0cb66cc0de5f020b81c0678ecd",
+      "bytes": 4788
+    },
+    {
+      "path": "extensions/omnirag/tools/policy.py",
+      "sha256": "ec6f943977022c1d19d940e1ec4b0b0fbfcbe16cac95aaf0304761db77aacfe8",
+      "bytes": 2651
+    },
+    {
+      "path": "extensions/omnirag/tools/registry.py",
+      "sha256": "753e3b89551fa7ed98fec8508d8ecae0e7f12771de2261fa525b5f91f9e9425c",
+      "bytes": 4546
+    },
+    {
+      "path": "extensions/omnirag/tools/risk.py",
+      "sha256": "7e08551833eb550c27c085f97d799a552c979b1561f6bb84fc87f7bf7f18ce01",
+      "bytes": 3576
+    },
+    {
+      "path": "extensions/omnirag/tools/selector.py",
+      "sha256": "b00b8a7a1acb88e7902fec60972a754ff1d8db461335fd3d2fdfd24f2a8eccc9",
+      "bytes": 4511
+    },
+    {
+      "path": "extensions/omnirag/tools/session.py",
+      "sha256": "a7c61b75127323ffeb93656bd700b471246a79b34be1b5f5445fc5902f64bd73",
+      "bytes": 6112
+    },
+    {
+      "path": "extensions/omnirag/tools/types.py",
+      "sha256": "4ca546bd1d57ce8c2d82027864985a6ed6cb696f952fd4ac41c912f73f636ff2",
+      "bytes": 2417
+    },
+    {
+      "path": "patches/omnirag/phase5_tool_governance.patch",
+      "sha256": "87d173b72b37d90cd74f1ec43812befc14e1d4d7e5407765ae01bf2e71ff8c60",
+      "bytes": 946
+    },
+    {
+      "path": "scripts/omnirag/phase5_apply_patch.py",
+      "sha256": "9d654855465cf4c0f2716d1ec8f2961ee7ce31ed845fd9a290cc1522c3282bb1",
+      "bytes": 2417
+    },
+    {
+      "path": "scripts/omnirag/phase5_compile_taskspec.py",
+      "sha256": "95b6f55420a2edb699b1665e04b1b39c42e61c9319bf0ff677a258b6c5e78916",
+      "bytes": 1215
+    },
+    {
+      "path": "scripts/omnirag/phase5_contract_validate.py",
+      "sha256": "76b2cba5de3a14b1d3a88fb486da875f1f4d56d43d25a7cc9106f8cc99946aa3",
+      "bytes": 3528
+    },
+    {
+      "path": "scripts/omnirag/phase5_evaluate_tool_selection.py",
+      "sha256": "1e9bf54255dc7114dc3b6f20cf0b2e241d60e3ff0649e1bc4ffbdd10e22feb89",
+      "bytes": 3403
+    },
+    {
+      "path": "scripts/omnirag/phase5_runtime_contract_validate.py",
+      "sha256": "b1e85ae4412ad21066d703ce149e174801a1e8fd441ca155e02a791a22b660d7",
+      "bytes": 1954
+    },
+    {
+      "path": "scripts/omnirag/phase5_static_validate.sh",
+      "sha256": "e23716071fdb0636f6d74875a704546ef50494384e54cb1e5655209acae27dfd",
+      "bytes": 8387
+    },
+    {
+      "path": "tests/omnirag/test_mcp_reference_phase5.py",
+      "sha256": "b3fddb892d8ce532024f12946fc9dd040b29bbf6d191d1a5f60ba4d75242c698",
+      "bytes": 672
+    },
+    {
+      "path": "tests/omnirag/test_taskspec_phase5.py",
+      "sha256": "43c575210c40103c74a1baa393ebd81687335213818326dd5083abd75165a668",
+      "bytes": 7639
+    },
+    {
+      "path": "tests/omnirag/test_tool_governance_phase5.py",
+      "sha256": "bce53aaa27096696b47d145ce27a25c20c05eb6de3d54de753925aaad7c5e7f3",
+      "bytes": 10978
+    }
+  ]
+}

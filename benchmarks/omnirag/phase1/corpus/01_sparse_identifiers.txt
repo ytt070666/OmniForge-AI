@@ -1,0 +1,5 @@
+OmniRAG Phase-1 Baseline Document: Sparse Identifiers
+
+The Falcon sensor gateway uses maintenance code QX-741 for the emergency diagnostic sequence. Its service port is 18443. The audit token label is ALPHA-NEBULA-27. These identifiers are intentionally exact strings so that lexical retrieval can be evaluated without ambiguity.
+
+For scheduled maintenance, engineers must record the gateway serial number, the maintenance code, and the service port before starting diagnostics. The exact maintenance code in this document is QX-741.

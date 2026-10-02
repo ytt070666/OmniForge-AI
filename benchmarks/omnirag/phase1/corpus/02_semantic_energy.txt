@@ -1,0 +1,5 @@
+OmniRAG Phase-1 Baseline Document: Semantic Energy
+
+A battery energy storage system can charge when electricity demand is low and discharge during periods of high demand. This shifts electricity consumption across time, reduces the highest grid load, and smooths demand fluctuations. The operational objective is commonly described as peak shaving and valley filling, even when those exact words are not used in every explanation.
+
+A controller can combine load forecasts, battery state of charge, electricity price, and power limits to schedule charging and discharging. The main business benefit is reducing peak-demand pressure while improving use of otherwise idle off-peak capacity.

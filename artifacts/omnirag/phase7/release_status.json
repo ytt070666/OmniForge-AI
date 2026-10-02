@@ -1,0 +1,58 @@
+{
+  "evaluations": [
+    {
+      "metric_scope": "live RAGFlow retrieval",
+      "name": "phase1_retrieval_baseline",
+      "path": null,
+      "status": "not_run"
+    },
+    {
+      "metric_scope": "live adaptive retrieval",
+      "name": "phase2_adaptive_retrieval",
+      "path": null,
+      "status": "not_run"
+    },
+    {
+      "metric_scope": "live multimodal retrieval",
+      "name": "phase3_multimodal",
+      "path": null,
+      "status": "not_run"
+    },
+    {
+      "metric_scope": "synthetic offline smoke only",
+      "name": "phase5_tool_selector_smoke",
+      "path": "artifacts/omnirag/phase5_tool_selection_smoke.json",
+      "status": "available"
+    },
+    {
+      "metric_scope": "protected benchmark deterministic baseline",
+      "name": "phase6_rule_router_protected",
+      "path": "artifacts/omnirag/phase6/rule_baseline_protected_metrics.json",
+      "status": "available"
+    },
+    {
+      "metric_scope": "requires actual model inference",
+      "name": "phase6_learned_router_test",
+      "path": null,
+      "status": "not_run"
+    },
+    {
+      "metric_scope": "requires actual model inference",
+      "name": "phase6_learned_router_protected",
+      "path": null,
+      "status": "not_run"
+    },
+    {
+      "metric_scope": "requires live trace events",
+      "name": "phase6_system_observability",
+      "path": null,
+      "status": "not_run"
+    }
+  ],
+  "live_evaluation_count": 0,
+  "not_run_evaluation_count": 6,
+  "release_stage": "prelocal_ready",
+  "rule": "Pre-local artifacts never imply live RAGFlow/GPU validation.",
+  "runtime_verified": false,
+  "schema_version": 1
+}

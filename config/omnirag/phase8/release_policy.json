@@ -1,0 +1,31 @@
+{
+  "release_name": "OmniRAG-Agent",
+  "release_stage": "prelocal_ready",
+  "runtime_verified": false,
+  "claims_policy": {
+    "allow_static_test_counts": true,
+    "allow_synthetic_smoke_metrics_with_label": true,
+    "allow_live_quality_metrics_without_artifact": false,
+    "allow_runtime_deployment_claim_without_execution": false,
+    "allow_upstream_features_as_original_work": false
+  },
+  "required_prelocal_gates": [
+    "phase7_static_validation",
+    "phase1_core_integrity",
+    "full_patch_stack",
+    "secret_scan",
+    "phase8_claims_audit",
+    "phase8_demo_contracts"
+  ],
+  "required_local_gates": [
+    "docker_runtime",
+    "ragflow_health",
+    "baseline_retrieval",
+    "phase2_ablation",
+    "phase3_multimodal",
+    "phase4_agent_governance",
+    "phase5_mcp_runtime",
+    "phase6_training_and_promotion",
+    "observability_artifacts"
+  ]
+}

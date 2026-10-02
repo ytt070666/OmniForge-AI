@@ -1,0 +1,5 @@
+OmniRAG Phase-1 Baseline Document: Hybrid Retrieval
+
+Hybrid retrieval combines sparse lexical matching with dense semantic vector search. Sparse retrieval is strong when a query contains exact product codes, rare names, identifiers, or specialized terminology. Dense retrieval is useful when the query and the document express the same meaning with different words.
+
+A reranker can score a smaller candidate set after the first retrieval stage. In RAGFlow, the retrieval response exposes an overall similarity score together with vector_similarity and term_similarity, which makes it possible to analyze how fixed fusion weights affect the final ranking.

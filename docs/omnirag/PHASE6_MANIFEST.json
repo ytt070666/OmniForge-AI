@@ -1,0 +1,306 @@
+{
+  "core_delivery_state": "frozen_phase1_core_unmodified",
+  "correctness_guards": [
+    "family_level_split",
+    "protected_benchmark_excluded_from_train_and_validation",
+    "exact_prompt_leakage_guard",
+    "protected_5gram_overlap_guard",
+    "secret_like_data_scan",
+    "closed_router_output_schema",
+    "router_cannot_authorize_write_or_execute_tools",
+    "phase5_tool_policy_remains_authoritative",
+    "phase3_evidence_verifier_remains_authoritative",
+    "fail_closed_promotion_gate",
+    "no_automatic_core_patch_on_promotion",
+    "observability_omits_raw_prompt_completion_tool_args",
+    "cost_null_without_explicit_price_table",
+    "training_environment_isolated_from_ragflow_runtime"
+  ],
+  "dataset": {
+    "protected": 56,
+    "protected_train_max_5gram_overlap": 0.0,
+    "protected_used_for_training": false,
+    "test": 48,
+    "train": 168,
+    "validation": 48
+  },
+  "dependency_contract": {
+    "bitsandbytes": ">=0.50.2,<1",
+    "datasets": ">=5.0.1,<6",
+    "peft": ">=0.21.0,<1",
+    "torch": "platform-specific; >=2.4 required by bitsandbytes docs; install separately",
+    "transformers": ">=5.17.0,<6",
+    "trl": ">=1.13.0,<2"
+  },
+  "files": [
+    {
+      "bytes": 1513,
+      "path": "artifacts/omnirag/phase6/evaluation_matrix.json",
+      "sha256": "b6c4ebd25375eb1d2a779f4a7a0cc183fbddae6b60e10c7a8386093983fcd768"
+    },
+    {
+      "bytes": 652,
+      "path": "artifacts/omnirag/phase6/observability_fixture_summary.json",
+      "sha256": "35af12df0ab716041a90d399541b19e83861f6fddbcb1bb7670f8f26327fbeb8"
+    },
+    {
+      "bytes": 655,
+      "path": "artifacts/omnirag/phase6/rule_baseline_protected_metrics.json",
+      "sha256": "f32a96d22c7a88338c83b5aaf87e9d16573f8b56ca1e828e0236fd304154bccc"
+    },
+    {
+      "bytes": 11680,
+      "path": "artifacts/omnirag/phase6/rule_baseline_protected_predictions.jsonl",
+      "sha256": "8c5d9f45b7ceaa31d04cc6a7f7120cff2fe7c1b09a2da3c849124be390e7cc64"
+    },
+    {
+      "bytes": 642,
+      "path": "artifacts/omnirag/phase6/rule_baseline_test_metrics.json",
+      "sha256": "dfb5293c11da814a1137fd54af71b1b525d394e3de3fdb96f149b363c609dc3b"
+    },
+    {
+      "bytes": 10178,
+      "path": "artifacts/omnirag/phase6/rule_baseline_test_predictions.jsonl",
+      "sha256": "5702d47099321515c5ceba7a600546defda4b2487333231092d96630807f9d40"
+    },
+    {
+      "bytes": 1399,
+      "path": "benchmarks/omnirag/phase6/README.md",
+      "sha256": "762d4ec15f99b3aeff4cbe4f1b92446e6c42652fdf6f196c9ba081a1ee341f5b"
+    },
+    {
+      "bytes": 709,
+      "path": "benchmarks/omnirag/phase6/observability_fixture.jsonl",
+      "sha256": "db9f3012d0e4c9f6535cd0f3fb434fed9dbc8c67fb1d45cd05fd3da30050e179"
+    },
+    {
+      "bytes": 1842,
+      "path": "benchmarks/omnirag/phase6/router/dataset_manifest.json",
+      "sha256": "3013eca4679d8d9330391830f2b4de942d93be26826d07d4b0b53fcbf7af29c8"
+    },
+    {
+      "bytes": 50521,
+      "path": "benchmarks/omnirag/phase6/router/protected_benchmark.jsonl",
+      "sha256": "12229e6696409d6c07769395d14ebf5ab37971b82442fbbe1144bcbeb1a96858"
+    },
+    {
+      "bytes": 42414,
+      "path": "benchmarks/omnirag/phase6/router/test.jsonl",
+      "sha256": "a3cfe399d377a9ed9109185e22f3e7a4189495716a3c4187f54e3f44fb12771e"
+    },
+    {
+      "bytes": 149640,
+      "path": "benchmarks/omnirag/phase6/router/train.jsonl",
+      "sha256": "2cf7a4100b4bae8c498c1a88b670b93f50f6a0ba9088ec10e5f47107d466b034"
+    },
+    {
+      "bytes": 43712,
+      "path": "benchmarks/omnirag/phase6/router/validation.jsonl",
+      "sha256": "7504582b403c0a6044ad85a837292998f1c29a92b4eca96a0da80c1bd6dd3a74"
+    },
+    {
+      "bytes": 790,
+      "path": "config/omnirag/phase6/observability.json",
+      "sha256": "d141f3caf8e2e62c675e9f65404e6b0d883a474ffe3c9b66aca7d3c5046c6bf6"
+    },
+    {
+      "bytes": 3,
+      "path": "config/omnirag/phase6/price_table.example.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "bytes": 573,
+      "path": "config/omnirag/phase6/promotion_gate.json",
+      "sha256": "88fd04de24362eecbc6e992587f6acb5263988f080199eefe5dc078798c9aea8"
+    },
+    {
+      "bytes": 415,
+      "path": "config/omnirag/phase6/requirements-training.txt",
+      "sha256": "fcea34e0eb1a15ecdc08d962d3dd9220a44558d9e284424369b95f6edbc40d18"
+    },
+    {
+      "bytes": 1593,
+      "path": "config/omnirag/phase6/router_lora.json",
+      "sha256": "3989edf8e1e839f68d6db464b56f8b930d150ec2e3f0be328abe0ef6d956f4b2"
+    },
+    {
+      "bytes": 937,
+      "path": "config/omnirag/phase6/router_schema.json",
+      "sha256": "a1725bb9e5bf58dfdc73e5495cc967628f72fce4d355337115260c9f8cd5c5d9"
+    },
+    {
+      "bytes": 1589,
+      "path": "config/omnirag/phase6/router_sft.json",
+      "sha256": "c89854999e7e3df5230f15087417bf7ee016b5d177178008fcdd6ba37808932c"
+    },
+    {
+      "bytes": 1360,
+      "path": "docs/omnirag/PHASE6_ACCEPTANCE_CHECKLIST.md",
+      "sha256": "b2dd7ee3322164ac9a704840f7400f0e26b361e278f7df5a01b5bd804125539d"
+    },
+    {
+      "bytes": 3312,
+      "path": "docs/omnirag/PHASE6_LOCAL_RUN_LATER.md",
+      "sha256": "7da7532909b460e8b74f214b0c3c75e653d4d38ee0b72432ac9f21c158b16083"
+    },
+    {
+      "bytes": 4441,
+      "path": "docs/omnirag/PHASE6_POSTTRAINING_EVAL_DESIGN.md",
+      "sha256": "4ce7376a82e2f1d658c05b54881acfb261f885596a2d28cc44a8b4465aaedc2a"
+    },
+    {
+      "bytes": 2564,
+      "path": "docs/omnirag/PHASE6_PRELOCAL_REPORT.md",
+      "sha256": "2c97799d06280af570d52d3d0612c77ae8999cc6fab0d14b6dda67ea2c2f21bb"
+    },
+    {
+      "bytes": 0,
+      "path": "extensions/omnirag/observability/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2809,
+      "path": "extensions/omnirag/observability/events.py",
+      "sha256": "03fcac6ff57daddd896ad2bdd93e564a0ef1f73e50164e2c2e4ced42d30a008e"
+    },
+    {
+      "bytes": 3013,
+      "path": "extensions/omnirag/observability/metrics.py",
+      "sha256": "f91c8e915805f09dfa8bdb027b0096fa253ae2ebb527bb990e1e8cfe8182e8e0"
+    },
+    {
+      "bytes": 0,
+      "path": "extensions/omnirag/training/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2440,
+      "path": "extensions/omnirag/training/baseline_router.py",
+      "sha256": "7bb6caea2ac44d49bae88801ebc9c869f1033fbc06251c4e0344668f08b101a8"
+    },
+    {
+      "bytes": 4931,
+      "path": "extensions/omnirag/training/dataset.py",
+      "sha256": "9f098ab2bbf6cb036b7c5c2c81bf06db17e49838e9ab0da4d49f9151f6b0fa48"
+    },
+    {
+      "bytes": 2934,
+      "path": "extensions/omnirag/training/metrics.py",
+      "sha256": "890240f8409878fa5b6905ed27be1674ad579fef1ec593458f4d2951e4699d1a"
+    },
+    {
+      "bytes": 1462,
+      "path": "extensions/omnirag/training/redaction.py",
+      "sha256": "51857bcfac5395fa073895176e2deab2b22060cf64dc3f7755f03c4f6d56f919"
+    },
+    {
+      "bytes": 4492,
+      "path": "extensions/omnirag/training/schema.py",
+      "sha256": "39692847ecbd5aac871e93d8751e7a4bea0dddde972dd1c22d8643e0b5b559b9"
+    },
+    {
+      "bytes": 1325,
+      "path": "scripts/omnirag/phase6_ablation_plan.py",
+      "sha256": "4ff2f8ab0c16011f4cf1ca565ae401cc624cbf462b45cc67b58bbed6432ad293"
+    },
+    {
+      "bytes": 1219,
+      "path": "scripts/omnirag/phase6_aggregate_observability.py",
+      "sha256": "3339a6082fb0a550ff5e197083087e998e0a4816a833def4ca7d022094d38117"
+    },
+    {
+      "bytes": 14671,
+      "path": "scripts/omnirag/phase6_build_router_dataset.py",
+      "sha256": "95cddcb27b6b74698a52f5d1416b572d22c1535c19b5c8bbab5e3a532ba671c9"
+    },
+    {
+      "bytes": 2562,
+      "path": "scripts/omnirag/phase6_collect_evaluation_matrix.py",
+      "sha256": "4432cb6d7b5fcc9ff2f6c9e5cbffa372a702d95d42d6aa18620a01d1afb131cc"
+    },
+    {
+      "bytes": 3008,
+      "path": "scripts/omnirag/phase6_contract_validate.py",
+      "sha256": "7dcb0e9b4151d2695e4617f6d184e34a7ec509209ccf8e8692919fc54ec5717b"
+    },
+    {
+      "bytes": 1010,
+      "path": "scripts/omnirag/phase6_evaluate_router.py",
+      "sha256": "713caad4fb1f0128499f4bc0ae422789b645bea18285a436741d978fea2077d9"
+    },
+    {
+      "bytes": 2135,
+      "path": "scripts/omnirag/phase6_infer_router.py",
+      "sha256": "d362f845db2a4ec65c7953e1883cd79f54f0594622978d95aed4c632f9cb30d2"
+    },
+    {
+      "bytes": 3371,
+      "path": "scripts/omnirag/phase6_promotion_gate.py",
+      "sha256": "281ed11bf468f72d098ce0a0c81cd3084dfc92424fa29e42afe867706fc54e06"
+    },
+    {
+      "bytes": 945,
+      "path": "scripts/omnirag/phase6_rule_baseline.py",
+      "sha256": "46f28db6a71b4df127b96ede56acfd91e6fa077ad18684e8a2f333b44fb9d152"
+    },
+    {
+      "bytes": 6391,
+      "path": "scripts/omnirag/phase6_static_validate.sh",
+      "sha256": "9cb03ebaa0dbeb6cd5113a0fa344fb2b512b38a23512681546d6d55e6a855673"
+    },
+    {
+      "bytes": 8010,
+      "path": "scripts/omnirag/phase6_train_router.py",
+      "sha256": "8caf3b1292b03837abbeadc50db33473d0328c3937b11c777ede1094be2de22f"
+    },
+    {
+      "bytes": 1829,
+      "path": "tests/omnirag/test_observability_phase6.py",
+      "sha256": "f9ff1ddfc2e27aae60e66f688b77a27c541d7381e225fec6ab46ab24cf1b2edc"
+    },
+    {
+      "bytes": 2676,
+      "path": "tests/omnirag/test_training_phase6.py",
+      "sha256": "6d228d535b163e39c8df9c1511c1fd5cf5a2893474073900fdb2170698372d1f"
+    }
+  ],
+  "known_boundaries": [
+    "synthetic_template_test_is_not_production_benchmark",
+    "protected_benchmark_is_project_internal_not_external",
+    "router_quality_does_not_imply_end_to_end_rag_agent_improvement",
+    "actual_lora_qlora_training_requires_local_gpu",
+    "exact_platform_dependency_lock_deferred_until_real_gpu_machine",
+    "qwen3_vl_main_model_not_finetuned_in_phase6",
+    "agentic_rl_grpo_deferred_until_live_tool_environment_and_reward_checker_exist",
+    "native_langfuse_integration_remains_owned_by_ragflow"
+  ],
+  "name": "posttraining_evaluation_observability",
+  "phase": "6",
+  "phase6_core_patch_targets": [],
+  "posttraining_task": {
+    "default_method": "QLoRA",
+    "lora_target_modules": "all-linear",
+    "model": "Qwen/Qwen3-0.6B",
+    "quantization": "4-bit NF4 with double quantization and BF16 compute",
+    "router_role": "advisory_only"
+  },
+  "ragflow_baseline": "0.27.2",
+  "schema_version": 1,
+  "upstream_archive_commit": "a024bea0cd93f39e6652a42bf84dd20c55bc560b",
+  "validation": {
+    "learned_router_metrics": "not_run",
+    "learned_router_training": "not_run_by_user_instruction",
+    "live_ragflow_runtime": "not_run_by_user_instruction",
+    "live_system_observability": "not_run",
+    "omnirag_unit_tests": 66,
+    "omnirag_unit_tests_passed": 66,
+    "phase1_core_integrity": "pass_8_of_8",
+    "phase5_regression_validation": "pass",
+    "phase6_contracts": "pass",
+    "ruff": "not_available_in_current_execution_environment",
+    "rule_baseline_protected_exact_match": 0.7857142857142857,
+    "rule_baseline_protected_json_valid_rate": 1.0,
+    "rule_baseline_synthetic_test_exact_match": 0.7291666666666666,
+    "training_preflight_no_download": "pass"
+  }
+}

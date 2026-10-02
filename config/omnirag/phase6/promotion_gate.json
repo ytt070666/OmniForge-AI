@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "policy": "fail_closed",
+  "required": {
+    "json_schema_valid_rate": 0.99,
+    "max_regression_vs_rule_baseline": 0.02,
+    "min_query_class_gain_vs_rule_baseline": 0.0,
+    "min_needs_visual_f1_gain_vs_rule_baseline": 0.0,
+    "min_needs_tools_f1_gain_vs_rule_baseline": 0.0,
+    "min_tool_intent_gain_vs_rule_baseline": 0.0
+  },
+  "integration_boundary": {
+    "router_is_advisory": true,
+    "phase5_policy_remains_authoritative": true,
+    "phase3_verifier_remains_authoritative": true,
+    "automatic_core_patch_on_gate_pass": false
+  }
+}

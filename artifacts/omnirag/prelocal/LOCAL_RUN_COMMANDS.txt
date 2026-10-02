@@ -1,0 +1,21 @@
+# Generated plan only. Do not run until the project is moved to the local machine.
+
+# 1. Inspect environment
+bash scripts/omnirag/check_phase1_env.sh
+
+# 2. Static/offline validation
+bash scripts/omnirag/phase1_static_validate.sh
+python3 scripts/omnirag/phase2_policy_preview.py
+
+# 3. Local runtime will use:
+# runtime_profile=baseline_python_es
+# model_profile=research_balanced
+
+# 4. BEFORE baseline, keep feature flags off:
+export OMNIRAG_ADAPTIVE_RETRIEVAL=0
+export OMNIRAG_EVIDENCE_VERIFIER=0
+export OMNIRAG_MEMORY_POLICY=0
+
+# 5. AFTER baseline is archived, apply Phase-2 patch:
+python3 scripts/omnirag/phase2_apply_patch.py --apply
+export OMNIRAG_ADAPTIVE_RETRIEVAL=1

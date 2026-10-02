@@ -1,0 +1,38 @@
+{
+  "queries": 28,
+  "routes": {
+    "lexical_precision": 4,
+    "semantic": 15,
+    "hybrid": 4,
+    "visual_or_mixed": 1,
+    "crosslingual_semantic": 4
+  },
+  "by_benchmark_category": {
+    "crosslingual": {
+      "crosslingual_semantic": 4
+    },
+    "hybrid": {
+      "semantic": 4
+    },
+    "lexical": {
+      "lexical_precision": 4
+    },
+    "mcp": {
+      "hybrid": 1,
+      "semantic": 3
+    },
+    "memory": {
+      "semantic": 4
+    },
+    "multimodal": {
+      "semantic": 1,
+      "visual_or_mixed": 1,
+      "hybrid": 2
+    },
+    "semantic": {
+      "semantic": 3,
+      "hybrid": 1
+    }
+  },
+  "output": "/mnt/data/omnirag-next/ragflow-main/artifacts/omnirag/prelocal/phase2_policy_preview.jsonl"
+}

@@ -1,0 +1,15 @@
+# Apply after the frozen Gate 1/2 runs. Secrets are injected from the shell.
+services:
+  ragflow-cpu:
+    environment:
+      OMNIRAG_ADAPTIVE_RETRIEVAL: '0'
+      OMNIRAG_MULTIMODAL_RETRIEVAL: '1'
+      OMNIRAG_VISUAL_ALWAYS_ON: '1'
+      OMNIRAG_EVIDENCE_VERIFIER: '1'
+      OMNIRAG_VISUAL_ENCODER: http
+      OMNIRAG_VISUAL_ENCODER_URL: http://host.docker.internal:11435
+      OMNIRAG_VISUAL_ENCODER_TOKEN: ${OMNIRAG_VISUAL_ENCODER_TOKEN:?set visual encoder token}
+      OMNIRAG_VISUAL_INDEX: /ragflow/artifacts/omnirag/visual_index_ragflow_siglip2.jsonl
+    volumes:
+      - ../api/db/services/dialog_service.py:/ragflow/api/db/services/dialog_service.py:ro
+      - ../artifacts/omnirag/visual_index_ragflow_siglip2.jsonl:/ragflow/artifacts/omnirag/visual_index_ragflow_siglip2.jsonl:ro

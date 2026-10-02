@@ -1,0 +1,35 @@
+{
+  "phase": "3",
+  "name": "multimodal_retrieval_and_evidence_verification",
+  "feature_flags": {
+    "OMNIRAG_MULTIMODAL_RETRIEVAL": false,
+    "OMNIRAG_VISUAL_ALWAYS_ON": false,
+    "OMNIRAG_EVIDENCE_VERIFIER": false
+  },
+  "visual_retrieval": {
+    "encoder": "siglip2",
+    "model": "google/siglip2-base-patch16-384",
+    "index_backend": "jsonl_sidecar_v1",
+    "index_path": "artifacts/omnirag/visual_index.jsonl",
+    "fusion": "query_adaptive_weighted_rrf",
+    "rrf_k": 60,
+    "agreement_bonus": 0.35
+  },
+  "generation_vlm": {
+    "role": "answer_generation_and_visual_reasoning",
+    "preferred": "Qwen3-VL-8B-Instruct",
+    "note": "RAGFlow's existing VISION model path remains the generator; the visual retriever uses a joint embedding encoder."
+  },
+  "evidence_verifier": {
+    "method": "deterministic_v1_then_optional_semantic_judge",
+    "support_threshold": 0.42,
+    "pass_threshold": 0.62,
+    "abstain_threshold": 0.34,
+    "enforcement": "report_only_in_phase3"
+  },
+  "research_guard": {
+    "hash_encoder_valid_for_metrics": false,
+    "baseline_core_patch_applied_automatically": false,
+    "reranker_enabled_in_first_phase3_ablation": false
+  }
+}

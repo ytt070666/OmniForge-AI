@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "default_profile": "baseline_python_es",
+  "profiles": {
+    "baseline_python_es": {
+      "api_proxy_scheme": "python",
+      "doc_engine": "elasticsearch",
+      "metadata_db": "mysql",
+      "object_storage": "minio",
+      "cache": "redis",
+      "message_queue": "nats",
+      "deepdoc_device": "cpu",
+      "tei_profile": "tei-cpu",
+      "jaeger": false,
+      "sandbox": false,
+      "mcp_server": false,
+      "purpose": "Phase-1 untouched baseline"
+    },
+    "research_python_es": {
+      "api_proxy_scheme": "python",
+      "doc_engine": "elasticsearch",
+      "metadata_db": "mysql",
+      "object_storage": "minio",
+      "cache": "redis",
+      "message_queue": "nats",
+      "deepdoc_device": "cpu",
+      "tei_profile": "tei-gpu",
+      "jaeger": true,
+      "sandbox": false,
+      "mcp_server": true,
+      "purpose": "Post-baseline research and observability"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "files": {
+    "protected_benchmark.jsonl": {
+      "bytes": 50521,
+      "sha256": "12229e6696409d6c07769395d14ebf5ab37971b82442fbbe1144bcbeb1a96858"
+    },
+    "test.jsonl": {
+      "bytes": 42414,
+      "sha256": "a3cfe399d377a9ed9109185e22f3e7a4189495716a3c4187f54e3f44fb12771e"
+    },
+    "train.jsonl": {
+      "bytes": 149640,
+      "sha256": "2cf7a4100b4bae8c498c1a88b670b93f50f6a0ba9088ec10e5f47107d466b034"
+    },
+    "validation.jsonl": {
+      "bytes": 43712,
+      "sha256": "7504582b403c0a6044ad85a837292998f1c29a92b4eca96a0da80c1bd6dd3a74"
+    }
+  },
+  "generator": "human-authored deterministic templates; no LLM generation",
+  "hygiene_findings": [],
+  "leakage_report": {
+    "class_counts": {
+      "test": {
+        "crosslingual": 6,
+        "hybrid": 6,
+        "lexical_precision": 6,
+        "semantic": 6,
+        "tool": 18,
+        "visual": 6
+      },
+      "train": {
+        "crosslingual": 24,
+        "hybrid": 24,
+        "lexical_precision": 24,
+        "semantic": 24,
+        "tool": 48,
+        "visual": 24
+      },
+      "validation": {
+        "crosslingual": 6,
+        "hybrid": 6,
+        "lexical_precision": 6,
+        "semantic": 6,
+        "tool": 18,
+        "visual": 6
+      }
+    },
+    "counts": {
+      "protected": 56,
+      "test": 48,
+      "train": 168,
+      "validation": 48
+    },
+    "family_collisions": {
+      "train__test": [],
+      "train__validation": [],
+      "validation__test": []
+    },
+    "prompt_collision_counts": {
+      "train__test": 0,
+      "train__validation": 0,
+      "validation__test": 0
+    },
+    "protected_exact_overlap_train": 0,
+    "protected_exact_overlap_validation": 0,
+    "protected_train_max_5gram_overlap": 0.0
+  },
+  "protected_sources_used_for_training": false,
+  "schema_version": 1,
+  "seed": 20260917,
+  "split_unit": "family_id"
+}

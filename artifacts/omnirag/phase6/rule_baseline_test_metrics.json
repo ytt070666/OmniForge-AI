@@ -1,0 +1,26 @@
+{
+  "exact_match": 0.7291666666666666,
+  "failures": [],
+  "field_accuracy": {
+    "evidence_strictness": 0.8541666666666666,
+    "needs_tools": 0.875,
+    "needs_visual": 0.9791666666666666,
+    "query_class": 0.7291666666666666,
+    "retrieval_profile": 0.7291666666666666,
+    "tool_intent": 0.875
+  },
+  "json_schema_valid_rate": 1.0,
+  "needs_tools": {
+    "f1": 0.8,
+    "precision": 1.0,
+    "recall": 0.6666666666666666
+  },
+  "needs_visual": {
+    "f1": 0.9090909090909091,
+    "precision": 1.0,
+    "recall": 0.8333333333333334
+  },
+  "parsed_valid": 48,
+  "tool_intent_accuracy_on_tool_subset": 0.6666666666666666,
+  "total": 48
+}

@@ -1,0 +1,33 @@
+digraph OmniRAG {
+  rankdir=TB;
+  graph [fontname="Arial", fontsize=12, labelloc="t", label="OmniRAG-Agent Final Architecture (Pre-local)", bgcolor="white"];
+  node [shape=box, style="rounded", fontname="Arial", fontsize=10];
+  edge [fontname="Arial", fontsize=9];
+
+  user [label="User / Enterprise Task"];
+  ui [label="RAGFlow Web UI / API"];
+  base [label="RAGFlow v0.27.2 Runtime\nKnowledge + Agent Canvas + MCP + Models"];
+  p2 [label="Phase 2\nQuery-Adaptive Two-Stage Retrieval"];
+  p3 [label="Phase 3\nMultimodal Sidecar + Evidence Verification"];
+  p4 [label="Phase 4\nAgent Governance + Reflection + Memory"];
+  p5 [label="Phase 5\nTool Registry + MCP Governance + Safe TaskSpec"];
+  p6 [label="Phase 6\nLoRA/QLoRA Advisory Router + Evaluation"];
+  obs [label="Observability\nRAGFlow/Langfuse + OmniRAG Events"];
+  deploy [label="Phase 7\nDocker / Kubernetes / CI/CD"];
+  judge [label="Evidence / Policy Gates\nFail-closed"];
+
+  user -> ui -> base;
+  base -> p2;
+  p2 -> p3;
+  p3 -> p4;
+  p4 -> p5;
+  p5 -> judge;
+  p6 -> p2 [label="advisory only", style=dashed];
+  p6 -> p5 [label="advisory only", style=dashed];
+  p2 -> obs [style=dashed];
+  p3 -> obs [style=dashed];
+  p4 -> obs [style=dashed];
+  p5 -> obs [style=dashed];
+  judge -> base [label="native execution"];
+  base -> deploy [style=dashed];
+}

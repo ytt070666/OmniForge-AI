@@ -1,0 +1,43 @@
+{
+  "abstain_count": 1,
+  "component_latency_ms": {
+    "llm": {
+      "count": 1,
+      "p50": 210.0,
+      "p95": 210.0
+    },
+    "retrieval": {
+      "count": 1,
+      "p50": 42.0,
+      "p95": 42.0
+    },
+    "tool": {
+      "count": 1,
+      "p50": 80.0,
+      "p95": 80.0
+    }
+  },
+  "cost": null,
+  "events": 3,
+  "latency_ms": {
+    "max": 210.0,
+    "mean": 110.66666666666667,
+    "p50": 80.0,
+    "p95": 197.0
+  },
+  "retry_count": 1,
+  "status_counts": {
+    "error": 1,
+    "ok": 2
+  },
+  "tokens": {
+    "input": 120,
+    "output": 45,
+    "total": 165
+  },
+  "tools": {
+    "calls": 1,
+    "failures": 1,
+    "success_rate": 0.0
+  }
+}

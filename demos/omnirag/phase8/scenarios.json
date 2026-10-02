@@ -1,0 +1,50 @@
+[
+  {
+    "id": "D1",
+    "name": "grounded_document_qa",
+    "goal": "Answer a policy question from enterprise documents with citations and abstain when evidence is insufficient.",
+    "phases": [1, 2, 3],
+    "requires_live_runtime": true,
+    "success_criteria": ["retrieval artifact exists", "answer references evidence", "unsupported claim triggers verifier action"]
+  },
+  {
+    "id": "D2",
+    "name": "multimodal_chart_qa",
+    "goal": "Use text plus a chart/page image and verify cross-modal consistency.",
+    "phases": [2, 3],
+    "requires_live_runtime": true,
+    "success_criteria": ["visual sidecar hit", "Qwen/VLM receives visual evidence", "cross-modal verifier emits structured decision"]
+  },
+  {
+    "id": "D3",
+    "name": "bounded_reflection",
+    "goal": "When evidence is insufficient, issue one focused retrieve-more attempt and stop within the configured retry budget.",
+    "phases": [3, 4],
+    "requires_live_runtime": true,
+    "success_criteria": ["first answer buffered", "focused retry is non-duplicative", "retry count never exceeds budget"]
+  },
+  {
+    "id": "D4",
+    "name": "safe_mcp_tool_use",
+    "goal": "Select a read-only MCP tool while rejecting write/execute tools under default policy.",
+    "phases": [5],
+    "requires_live_runtime": true,
+    "success_criteria": ["read tool eligible", "write tool denied", "tool call schema validated", "audit stores no raw arguments"]
+  },
+  {
+    "id": "D5",
+    "name": "taskspec_to_canvas",
+    "goal": "Compile a restricted TaskSpec into RAGFlow Canvas-shaped DSL without allowing arbitrary tool or code injection.",
+    "phases": [5],
+    "requires_live_runtime": false,
+    "success_criteria": ["DAG validates", "unknown outputs rejected", "secret-like fields rejected", "native Canvas remains execution owner"]
+  },
+  {
+    "id": "D6",
+    "name": "router_promotion_gate",
+    "goal": "Train/evaluate an advisory router and prevent deployment unless protected benchmark gates pass.",
+    "phases": [6],
+    "requires_live_runtime": true,
+    "success_criteria": ["protected test never used for training", "schema-valid output", "promotion gate is fail-closed"]
+  }
+]

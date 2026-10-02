@@ -1,0 +1,5 @@
+OmniRAG Phase-1 Baseline Document: Multimodal Bridge
+
+A multimodal retrieval pipeline should preserve both textual evidence and visual evidence. Text retrieval can search paragraphs, captions, OCR output, and metadata. Visual retrieval can index page images, charts, diagrams, or image regions with a vision encoder. A modality router can estimate whether a question is primarily textual, visual, or mixed.
+
+The planned OmniRAG-Agent extension will eventually fuse sparse text scores, dense text scores, visual relevance scores, and reranker scores. Phase 1 does not change the RAGFlow retrieval algorithm; it only establishes a reproducible baseline that future multimodal changes can be compared against.

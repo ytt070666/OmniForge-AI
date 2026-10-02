@@ -1,0 +1,21 @@
+{
+  "feature_flag": "OMNIRAG_TOOL_GOVERNANCE",
+  "default_enabled": false,
+  "default_allowed_risks": [
+    "read"
+  ],
+  "default_allow_destructive": false,
+  "default_allow_open_world": false,
+  "default_max_visible_tools": 6,
+  "default_max_total_calls": 8,
+  "default_max_calls_per_tool": 3,
+  "default_selector_min_score": 0.05,
+  "notes": [
+    "RAGFlow remains the MCP transport/session owner.",
+    "Unknown, write, execute, destructive, and explicitly open-world tools are not exposed under the default policy.",
+    "MCP annotations are advisory metadata, not an authorization boundary.",
+    "Enabling write/execute/open-world tools requires an explicit operator override.",
+    "Destructive MCP tools remain denied unless OMNIRAG_TOOL_ALLOW_DESTRUCTIVE=1."
+  ],
+  "mcp_annotations_are_authorization": false
+}

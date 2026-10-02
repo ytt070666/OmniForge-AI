@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: omnirag-ragflow
+  namespace: omnirag
+spec:
+  selector:
+    app: omnirag-ragflow
+  ports:
+    - name: api
+      port: 9380
+      targetPort: api
+    - name: web
+      port: 80
+      targetPort: web
+    - name: mcp
+      port: 9382
+      targetPort: mcp

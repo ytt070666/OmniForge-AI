@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "phase": "4",
+  "name": "memory_aware_agent_governance",
+  "ragflow_baseline": "0.27.2",
+  "core_delivery_state": "frozen_phase1_core_unmodified",
+  "patch_application_order": [
+    "phase2_adaptive_retrieval.patch",
+    "phase3_multimodal_verifier.patch",
+    "phase4_memory_agent_governance.patch"
+  ],
+  "phase4_core_patch_targets": [
+    "api/db/services/dialog_service.py",
+    "rag/advanced_rag/agentic_rag.py"
+  ],
+  "pre_phase4_hashes": {
+    "api/db/services/dialog_service.py": "1b58db3e6193e7e23ce98ab80a48bc1acc158191bfa05ae808dcfc26bdd2998c",
+    "rag/advanced_rag/agentic_rag.py": "75fd5ee92387f7c44f063ee332b6d355622c3ff27b69c79a2e5dd95233138b23"
+  },
+  "post_stack_syntax_tested_hashes": {
+    "rag/nlp/search.py": "5c96ad4364907378b4d579e5a0ec74be3b627f2616c96681198b6bcf1853534d",
+    "api/db/services/dialog_service.py": "1c74b3d71a3778790c25b026ff00d69bedba96aea941ebb373fb2243e6425738",
+    "rag/advanced_rag/agentic_rag.py": "9a4d6b951c064060be3b504b35bd34babe56ffd47346a88384a384d172b5a5ac"
+  },
+  "validation": {
+    "contract_scenarios": 12,
+    "contract_scenarios_passed": 12,
+    "omnirag_unit_tests": 31,
+    "omnirag_unit_tests_passed": 31,
+    "patch_stack_apply_and_pycompile": "pass",
+    "phase1_core_integrity": "pass_8_of_8",
+    "ruff": "not_available_in_current_execution_environment",
+    "live_runtime": "not_run_by_user_instruction"
+  },
+  "correctness_guards": [
+    "all_phase4_flags_disabled_by_default",
+    "native_ragflow_planner_not_replaced",
+    "post_generation_retry_inside_terminal_rag_tool",
+    "rejected_answer_drafts_buffered_when_governance_enabled",
+    "retry_budget_clamped_to_max_3",
+    "repeated_focus_query_loop_guard",
+    "planning_memory_not_evidence_or_citation_source",
+    "no_fabricated_memory_similarity_score",
+    "memory_tenant_boundary_check",
+    "strategy_memory_write_only_after_accept",
+    "original_query_and_final_answer_not_written_to_strategy_memory_envelope",
+    "semantic_memory_auto_write_disabled_by_default"
+  ],
+  "known_boundaries": [
+    "no_live_llm_or_gpu_metrics_yet",
+    "phase3_raw_pixel_visual_sidecar_is_not_yet_integrated_into_native_agentic_rag_graph",
+    "planning_memory_influences_router_strategy_context_not_factual_evidence"
+  ],
+  "files": [
+    {
+      "path": "extensions/omnirag/agent/__init__.py",
+      "sha256": "5bcbb1d151216dc3fe09c68a41bf6a90d9c75e1d505c5e8cd09d0d0c9312c995",
+      "bytes": 483
+    },
+    {
+      "path": "extensions/omnirag/agent/controller.py",
+      "sha256": "4be94c7111143c4923de7fd153bcd13999a96a660c730e4c9dc03b7696aa6a8a",
+      "bytes": 6051
+    },
+    {
+      "path": "extensions/omnirag/agent/critic.py",
+      "sha256": "9cb1a92e812fe006191e19a8505d692efbe61172e290c8c4b63dd13ede5fd075",
+      "bytes": 5579
+    },
+    {
+      "path": "extensions/omnirag/agent/memory_policy.py",
+      "sha256": "1dff72dc12b1cdf58831f1574f9988ebe0398eeeb3b0eeed2f9cffdb055a078f",
+      "bytes": 5425
+    },
+    {
+      "path": "extensions/omnirag/agent/memory_write.py",
+      "sha256": "4512bc2ee0929db88c0e9113163e9bc46d46f47e63253a444e9995430082231f",
+      "bytes": 1348
+    },
+    {
+      "path": "extensions/omnirag/agent/planner.py",
+      "sha256": "d5ca772c12cf3f91c216d1d2bdc1f62739e4e8973a20eaa8b93fadcc08e899ee",
+      "bytes": 2389
+    },
+    {
+      "path": "extensions/omnirag/agent/ragflow_governance.py",
+      "sha256": "5dfcb70fa8cfb0845f42d91aa5cd33232f3e55e0c357c8a936958cfd7187be60",
+      "bytes": 6560
+    },
+    {
+      "path": "extensions/omnirag/agent/ragflow_memory.py",
+      "sha256": "56709b75f2ea39eab58a64336d53ccb696f7d1f4960c43e979c1c99a1cd46e71",
+      "bytes": 5213
+    },
+    {
+      "path": "extensions/omnirag/agent/reflection.py",
+      "sha256": "592505ecde081659f31a71e6480297702651236daacb718ccea7ecf928e4f714",
+      "bytes": 2334
+    },
+    {
+      "path": "extensions/omnirag/agent/types.py",
+      "sha256": "328130fb65508c42c01f304102a88355406864b71c0b4ce5003e7223dca17849",
+      "bytes": 3390
+    },
+    {
+      "path": "tests/omnirag/test_agent_phase4.py",
+      "sha256": "ffbe1697be3a21411c4d092dda0fcc9987e5cf70ab203292cba417e5f775d96f",
+      "bytes": 5668
+    },
+    {
+      "path": "tests/omnirag/test_memory_phase4.py",
+      "sha256": "7eb2706b65f154f04cfc135a031c115a7968c431333e4206139e8d8f9848def3",
+      "bytes": 5974
+    },
+    {
+      "path": "patches/omnirag/phase4_memory_agent_governance.patch",
+      "sha256": "1b32e535ae51cb10d7dcbd7d3e307a7cef21c6cb39c4a0005cbb712c0bd3e934",
+      "bytes": 19979
+    },
+    {
+      "path": "scripts/omnirag/phase4_apply_patch.py",
+      "sha256": "4bff8aece68f4c648a0b6c913fd83ae24d4fe1845ca113a0c69cfe73e5f5f26a",
+      "bytes": 2747
+    },
+    {
+      "path": "scripts/omnirag/phase4_contract_validate.py",
+      "sha256": "ec765ed70378ae081e90dc97e11b3d61ba61b7606091465555428644de195042",
+      "bytes": 3696
+    },
+    {
+      "path": "scripts/omnirag/phase4_static_validate.sh",
+      "sha256": "1bc2688cf3b485783786f8241e722e8ce22cb13a2cfaaeab3d566fb65b9ec373",
+      "bytes": 2929
+    },
+    {
+      "path": "config/omnirag/phase4.env.example",
+      "sha256": "b973616959b16cef23dc895c9dade0e886ea8a10b24a51d65b32e6a6fc6152a6",
+      "bytes": 543
+    },
+    {
+      "path": "config/omnirag/phase4_agent_governance.json",
+      "sha256": "b67fd195943b981763755748a1390bb0fa1dc393f65e31b815fb082a94e19c98",
+      "bytes": 1073
+    },
+    {
+      "path": "benchmarks/omnirag/phase4/README.md",
+      "sha256": "8a12f9c0f81f4e8bc6e7f9c47f10f33c099c9eedf7bcd78afa806445595acf46",
+      "bytes": 864
+    },
+    {
+      "path": "benchmarks/omnirag/phase4/scenarios.jsonl",
+      "sha256": "c25d446546cf093d8e9478df493d10d45c7ecf1659ae189e7d8feb2bbc19c705",
+      "bytes": 4890
+    },
+    {
+      "path": "docs/omnirag/PHASE4_AGENT_GOVERNANCE_DESIGN.md",
+      "sha256": "abcac699b6911a2fe23f4162cc5616cead9c5ad026350aa913570910382cd2d3",
+      "bytes": 10649
+    },
+    {
+      "path": "docs/omnirag/PHASE4_LOCAL_RUN_LATER.md",
+      "sha256": "f8f02950db39905b7b34af64566452b6b0179e80f93d1637ae18bdc6ae3f83c7",
+      "bytes": 3757
+    },
+    {
+      "path": "docs/omnirag/PHASE4_PRELOCAL_REPORT.md",
+      "sha256": "1c80e1e4b7199bba8366ec0870ddf26e89634d08fa3e92762217e3402dda279b",
+      "bytes": 3658
+    }
+  ]
+}

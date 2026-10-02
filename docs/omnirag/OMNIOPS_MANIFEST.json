@@ -1,0 +1,351 @@
+{
+  "product": "OmniOps Copilot / OmniAI Modular Platform",
+  "version": "2.0.0",
+  "base": "OmniRAG-Agent + OmniOps Product V1",
+  "delivery": "application-and-modular-platform-v2",
+  "verification": {
+    "combined_tests": "85 passed",
+    "fastapi_http_selfcheck": "PASS",
+    "phase1_frozen_core": "PASS",
+    "phase8_manifest_and_claims": "PASS",
+    "external_framework_runtime": "partially_deferred",
+    "live_ragflow_runtime": "not_run"
+  },
+  "files": [
+    {
+      "path": "OMNIAI.md",
+      "sha256": "dd524efe36a448cf8335685c04bf56094cfbf4a49036718e5fb5b10e71c08160",
+      "bytes": 1533
+    },
+    {
+      "path": "OMNIOPS.md",
+      "sha256": "636e53d098fb54ca4ae4bb6ca3414d2ee1b0ef960bcbde6ead3a7d95d67f40ab",
+      "bytes": 769
+    },
+    {
+      "path": "THIRD_PARTY_OMNIAI.md",
+      "sha256": "07f0f3334801d8b8c933f212aacb1c7fae8810addd638aab8334fe16d4ea6020",
+      "bytes": 566
+    },
+    {
+      "path": "apps/omniops/.env.example",
+      "sha256": "32f411490359750f9c1da595cbb060c91e5bc3fe3f45eb77290f503448e83be8",
+      "bytes": 398
+    },
+    {
+      "path": "apps/omniops/README.md",
+      "sha256": "e75b72f5b2c708d296301abeb988b567f175ee7238fb3bf056f471552b762797",
+      "bytes": 613
+    },
+    {
+      "path": "apps/omniops/__init__.py",
+      "sha256": "6afe505bb19b3ca7969cc9e0838bb3aade52c05ac2673e880a4b6e2cc97e4a4c",
+      "bytes": 59
+    },
+    {
+      "path": "apps/omniops/api/__init__.py",
+      "sha256": "7cb3673b377fa3e2859fb7de4fde826198e049eb3f58698edbdfe7d0991de8e7",
+      "bytes": 43
+    },
+    {
+      "path": "apps/omniops/api/config.py",
+      "sha256": "718ad6ac8b356745ea6d26c95f6b0b5bb3ab295bd4b1fd2b8b8e3af436ee09ae",
+      "bytes": 1895
+    },
+    {
+      "path": "apps/omniops/api/demo_data.py",
+      "sha256": "65e52a3b24b727981e060772d606f4baccefa51e204b7d66cd21d237425a1cf6",
+      "bytes": 5059
+    },
+    {
+      "path": "apps/omniops/api/ragflow_client.py",
+      "sha256": "ee569bbe167bc683b53b10cf5275d9ab1cd13dc42304d6a07b7ad3263e5fe6f1",
+      "bytes": 2485
+    },
+    {
+      "path": "apps/omniops/api/services.py",
+      "sha256": "b9ac87054a6db049274d8b0b248dc851278ef6fc42263b8e99ef73d89d5ae3c9",
+      "bytes": 13803
+    },
+    {
+      "path": "apps/omniops/api/store.py",
+      "sha256": "4b1d77ea252f36c98540558b4ab8e2764e7114c16ab3c6948593cb1e48e37a30",
+      "bytes": 6087
+    },
+    {
+      "path": "apps/omniops/run.py",
+      "sha256": "27d35ecddcacba2b078cec16ff4bd27c508e0fa26728aa821cb28b64b0e96d9b",
+      "bytes": 126
+    },
+    {
+      "path": "apps/omniops/web/app.js",
+      "sha256": "a33457579c3535d32249fead520def08240d339b8cc1d6e55a49ee3f27a731cb",
+      "bytes": 17555
+    },
+    {
+      "path": "apps/omniops/web/assets/01_network_topology.png",
+      "sha256": "e29d569a79b922b48efab0204a7530e0d0cccbf7ea695488260a9a6d7c4e2804",
+      "bytes": 26959
+    },
+    {
+      "path": "apps/omniops/web/assets/02_sales_chart.png",
+      "sha256": "d3964c391b81129b5e19fb92e564acb77d247ab06f8f96a170c07c9553f0696b",
+      "bytes": 17496
+    },
+    {
+      "path": "apps/omniops/web/assets/03_latency_chart.png",
+      "sha256": "5e738e75caba7bdcae18259c4316dde64ec9b926e020fc54f8041ebfb0a485e2",
+      "bytes": 23122
+    },
+    {
+      "path": "apps/omniops/web/assets/04_ablation_table.png",
+      "sha256": "8606f6b21ab965f84d4137a6100cf2463e151f889dd64d2662441fe675da95fa",
+      "bytes": 30403
+    },
+    {
+      "path": "apps/omniops/web/assets/05_security_dashboard.png",
+      "sha256": "2962fa4ca8e58dac274adda5f75896df76c0229186baddf080ab27474b920463",
+      "bytes": 34671
+    },
+    {
+      "path": "apps/omniops/web/assets/06_agent_workflow.png",
+      "sha256": "3ce8df2b4c61f1bf19f782468845e9071188abafe4446b3b3ff15e573737b954",
+      "bytes": 20414
+    },
+    {
+      "path": "apps/omniops/web/index.html",
+      "sha256": "736fe7c7ea27464ff75df76253877c198c79394d6ea36d93ecb8b043756656bf",
+      "bytes": 1754
+    },
+    {
+      "path": "apps/omniops/web/styles.css",
+      "sha256": "c40bd5b9f2255fe2b90cde376456c3af3b18e87fa5a6f46123105608ee7fd140",
+      "bytes": 9037
+    },
+    {
+      "path": "artifacts/omnirag/omniops/PRODUCT_STATUS.json",
+      "sha256": "d4e7b5c63c93a32b28419cc7e1599c38d742de39e939a50adeb902740379026d",
+      "bytes": 816
+    },
+    {
+      "path": "benchmarks/omniai/load/README.md",
+      "sha256": "bd128a4c038f31a1825837312216840fb0bb1eabf92cc74ab4a3bad161d04b28",
+      "bytes": 386
+    },
+    {
+      "path": "benchmarks/omniai/load/locustfile.py",
+      "sha256": "275ddb0e943d44d6f1fd8d0afcb94f9e1ee26b6b8385ebed0b7487fcf3b54708",
+      "bytes": 679
+    },
+    {
+      "path": "config/omniai/upstreams.json",
+      "sha256": "f90c1c5fab0b0e49befd61739ea388f5cbea3a19593fb103408d586af88a9f6b",
+      "bytes": 3687
+    },
+    {
+      "path": "docs/omniai/ARCHITECTURE.md",
+      "sha256": "24644b4e27b7bb67a0d76519abd30ac616cb1329111527da49791757cf9a69ec",
+      "bytes": 2090
+    },
+    {
+      "path": "docs/omniai/GITHUB_REUSE_DECISIONS.md",
+      "sha256": "40547d50753fb0c87d49087400597fc69f61d592aee05dfa37423c93125cf63a",
+      "bytes": 2791
+    },
+    {
+      "path": "docs/omniai/INTEGRATION_REPORT.md",
+      "sha256": "d48fdaed5be589b699d8a603772896632201311681d5f548551c713cea12237e",
+      "bytes": 1765
+    },
+    {
+      "path": "docs/omniai/LEARNING_PATH.md",
+      "sha256": "fcc55e96f2d12e36330319ae41c7d3aab1eb97ef7d5ff4e0a644bfa2c1242811",
+      "bytes": 1490
+    },
+    {
+      "path": "docs/omniai/OMNIAI_MANIFEST.json",
+      "sha256": "8af3ef285fcfb53ddb2bf5f5df1d1672c3e579de71bba6932623044eb1687e07",
+      "bytes": 15521
+    },
+    {
+      "path": "docs/omniai/UPSTREAM_COMPONENTS.md",
+      "sha256": "81353dffa6bd0707c1f3deebd65ef48e5d20842c9274d0b72f024ba3187a4ccb",
+      "bytes": 2584
+    },
+    {
+      "path": "docs/omnirag/OMNIOPS_DELIVERY.md",
+      "sha256": "d73f9f6aa308d7e276a9040e92d412c4efa9cd33ddae0caf64b3474938f4950f",
+      "bytes": 2414
+    },
+    {
+      "path": "docs/omnirag/OMNIOPS_PRODUCT.md",
+      "sha256": "1189294f18527fea2dccf5063adf7bac9b5271a5484ad31d662a90649216695d",
+      "bytes": 4082
+    },
+    {
+      "path": "infra/omniai/.env.example",
+      "sha256": "5d2f920102af35599b166a5038178e1506f9fcf258071ab1b47bdb64b3f9ffe0",
+      "bytes": 383
+    },
+    {
+      "path": "infra/omniai/README.md",
+      "sha256": "7d33a088c2e754a1186f90040a69f9eafd201ddb796c0d6b43b731941e70ed39",
+      "bytes": 602
+    },
+    {
+      "path": "infra/omniai/agent.Dockerfile",
+      "sha256": "738ddf57ff8af900b75c09943b1ef2b6165a7f7646054bb7491e1f57fdf4e512",
+      "bytes": 470
+    },
+    {
+      "path": "infra/omniai/bff.Dockerfile",
+      "sha256": "d7e38ec390686f34e59148f6dbe32c34e98b266e560b18ed8106674c0a5b0afd",
+      "bytes": 390
+    },
+    {
+      "path": "infra/omniai/docker-compose.yml",
+      "sha256": "ccf5b37e04f742f6a4e708dcad52b4802cd5fcaa427f630b83c2ae6ee6bce48c",
+      "bytes": 2355
+    },
+    {
+      "path": "infra/omniai/gateway.Dockerfile",
+      "sha256": "ec2c2f405cc4968ada0dd9ab7faa01714132ead8fa010fc9850308155996f70c",
+      "bytes": 480
+    },
+    {
+      "path": "infra/omniai/llamaindex.Dockerfile",
+      "sha256": "6029dc05fc5a1c32fedecb69f11ca021776f7b2cd33e48f4d192101230620f56",
+      "bytes": 379
+    },
+    {
+      "path": "infra/omniai/prometheus/prometheus.yml",
+      "sha256": "9fefc2d43c56f6f3b56a72b925dd46977e6c965c369f088e73db71a948703da9",
+      "bytes": 130
+    },
+    {
+      "path": "infra/omniai/realtime.Dockerfile",
+      "sha256": "4b06861718110ec2deee2032237990e3d1b9908661e95276f69895a4e73e588f",
+      "bytes": 319
+    },
+    {
+      "path": "infra/omniai/spring.Dockerfile",
+      "sha256": "a684decb3070bfd0e8abc7406cd0a1cb50be881a58357fea6d4f4a3090511aed",
+      "bytes": 371
+    },
+    {
+      "path": "infra/omniai/tensorflow.Dockerfile",
+      "sha256": "f2ef69671dce57c1400f60d774596e0fd9fa4422a10739f81d933afa908460e2",
+      "bytes": 485
+    },
+    {
+      "path": "omniai_platform/__init__.py",
+      "sha256": "88ef10591a574abb511e62fb09bb71d0c79da25d9e01fe672551c95162ba5d7a",
+      "bytes": 430
+    },
+    {
+      "path": "omniai_platform/contracts.py",
+      "sha256": "29dac26ac646abd0d3371fd001c24c409044b8580a2a7e85fd5eb0fb111e4c83",
+      "bytes": 1616
+    },
+    {
+      "path": "omniai_platform/idempotency.py",
+      "sha256": "5650a1dd11802d1bc096154c826f5f805de34795a74c4e7b72624333b5bcadb1",
+      "bytes": 919
+    },
+    {
+      "path": "omniai_platform/jobs.py",
+      "sha256": "5338b1da676e8bffc4f48601ce9bc268f6e733f643a5d6ee629304cc193f19c8",
+      "bytes": 1957
+    },
+    {
+      "path": "omniai_platform/modules.py",
+      "sha256": "6521ec89fe8ecce31f4c43d758286f738cbb3e2cc817583746d1a2a69cf0ba47",
+      "bytes": 2805
+    },
+    {
+      "path": "omniai_platform/nats_jobs.py",
+      "sha256": "0ff0ab231f6d429b2b2ab3810d2e8f15ea185edca44f6a368694b671d97585a9",
+      "bytes": 3482
+    },
+    {
+      "path": "omniai_platform/rate_limit.py",
+      "sha256": "cf189e66d6144a5d2cfd772e60f29168f1cccddcd753992e67c4999b9b3317d0",
+      "bytes": 790
+    },
+    {
+      "path": "omniai_platform/resilience.py",
+      "sha256": "5bd0b534b873882dbf259bf3113e5ddbbe446fc602eb155864ff99fece55c8d8",
+      "bytes": 2705
+    },
+    {
+      "path": "scripts/omniai/generate_manifest.py",
+      "sha256": "38e23ee4c5c8cd42cdfa42e66f6a7145ea77c667f75b8447c6a071aa625b029f",
+      "bytes": 2904
+    },
+    {
+      "path": "scripts/omniai/validate_platform.py",
+      "sha256": "7a0505b3a68e9ef6ae4dde5b86c729b868a59256a689dbe24a79e63dbb9f23b6",
+      "bytes": 2992
+    },
+    {
+      "path": "scripts/omniai/verify_manifest.py",
+      "sha256": "6ddde0e50f13ab523a81c2acb6585fa12cd402799f1444b6c6e666cb0baf9b6c",
+      "bytes": 1021
+    },
+    {
+      "path": "scripts/omnirag/omniops_selfcheck.py",
+      "sha256": "62848ddaa729545b6f38fabe8d4fc1a999e45b022df4712e224e27c81146e212",
+      "bytes": 3696
+    },
+    {
+      "path": "scripts/omnirag/run_omniops.py",
+      "sha256": "ced90213fc0e372204c509c5ea4898569c95ebbecda4febfcf2dc5dfefb16caa",
+      "bytes": 364
+    },
+    {
+      "path": "services/omniai_gateway/README.md",
+      "sha256": "90f14792755c8c1be7ad57df46071a508444a6d8fc761ddd711aec0f3ebd45d5",
+      "bytes": 586
+    },
+    {
+      "path": "services/omniai_gateway/__init__.py",
+      "sha256": "01cbfd64c32ab717b52d3b776ecc2f3b7ad94ff5bcced7b265a2e909c1646d3b",
+      "bytes": 55
+    },
+    {
+      "path": "services/omniai_gateway/app.py",
+      "sha256": "85f782806a3fe29eff09ea9489f0e35cd71423e59d00478263777d080bafde72",
+      "bytes": 12856
+    },
+    {
+      "path": "services/omniai_gateway/main.py",
+      "sha256": "ace80b9eda478c6f1125b9a449d0d57fff232501d7acbfe18664bab49cc9aeb1",
+      "bytes": 642
+    },
+    {
+      "path": "services/omniai_gateway/requirements.txt",
+      "sha256": "86a30c7ec894c63c7d2998cae4363ba6036f69fab2e35e5deb05c94b9e00cfe8",
+      "bytes": 218
+    },
+    {
+      "path": "services/omniai_gateway/settings.py",
+      "sha256": "f3daa3a95b88d98e36b083909bf46d5ff943abd9a99c85db0de869fa993aad28",
+      "bytes": 1093
+    },
+    {
+      "path": "tests/omniai/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "tests/omniai/test_fastapi_gateway.py",
+      "sha256": "f54848d9d226b9266c2194650bc618b03fa6bafeb4ce40ba4312cc90d78c7e10",
+      "bytes": 928
+    },
+    {
+      "path": "tests/omniai/test_modular_platform.py",
+      "sha256": "54e2e928a8841359b5ba5606f68e7901f7da9d50a736233207a957232dbf4c24",
+      "bytes": 3608
+    }
+  ]
+}

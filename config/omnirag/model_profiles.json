@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "default_profile": "research_balanced",
+  "profiles": {
+    "cpu_api_first": {
+      "description": "Lowest-friction first live run. RAGFlow services and embedding can run locally; chat/vision/rerank may point to an OpenAI-compatible remote endpoint.",
+      "chat": {
+        "provider": "OpenAI-API-Compatible",
+        "model": "Qwen/Qwen3-VL-8B-Instruct",
+        "role": ["chat", "vision"],
+        "base_url_env": "OMNIRAG_CHAT_BASE_URL",
+        "api_key_env": "OMNIRAG_CHAT_API_KEY"
+      },
+      "embedding": {
+        "provider": "Builtin",
+        "model": "Qwen/Qwen3-Embedding-0.6B",
+        "transport": "TEI",
+        "base_url": "http://tei:80"
+      },
+      "rerank": {
+        "enabled": false,
+        "provider": "VLLM",
+        "model": "Qwen/Qwen3-Reranker-0.6B",
+        "base_url_env": "OMNIRAG_RERANK_BASE_URL",
+        "api_key_env": "OMNIRAG_RERANK_API_KEY"
+      }
+    },
+    "research_balanced": {
+      "description": "Recommended research profile. Keeps the embedding model small and reproducible, uses an 8B VLM for multimodal reasoning, and adds a dedicated reranker when resources allow.",
+      "chat": {
+        "provider": "VLLM",
+        "model": "Qwen/Qwen3-VL-8B-Instruct",
+        "role": ["chat", "vision"],
+        "base_url_env": "OMNIRAG_CHAT_BASE_URL",
+        "api_key_env": "OMNIRAG_CHAT_API_KEY"
+      },
+      "embedding": {
+        "provider": "Builtin",
+        "model": "Qwen/Qwen3-Embedding-0.6B",
+        "transport": "TEI",
+        "base_url": "http://tei:80"
+      },
+      "rerank": {
+        "enabled": true,
+        "provider": "VLLM",
+        "model": "Qwen/Qwen3-Reranker-0.6B",
+        "base_url_env": "OMNIRAG_RERANK_BASE_URL",
+        "api_key_env": "OMNIRAG_RERANK_API_KEY"
+      }
+    },
+    "research_high_quality": {
+      "description": "Higher-quality profile for a larger GPU/server. Intended for final experiments, not the first smoke test.",
+      "chat": {
+        "provider": "VLLM",
+        "model": "Qwen/Qwen3-VL-8B-Instruct",
+        "role": ["chat", "vision"],
+        "base_url_env": "OMNIRAG_CHAT_BASE_URL",
+        "api_key_env": "OMNIRAG_CHAT_API_KEY"
+      },
+      "embedding": {
+        "provider": "VLLM",
+        "model": "Qwen/Qwen3-Embedding-4B",
+        "base_url_env": "OMNIRAG_EMBED_BASE_URL",
+        "api_key_env": "OMNIRAG_EMBED_API_KEY"
+      },
+      "rerank": {
+        "enabled": true,
+        "provider": "VLLM",
+        "model": "Qwen/Qwen3-Reranker-4B",
+        "base_url_env": "OMNIRAG_RERANK_BASE_URL",
+        "api_key_env": "OMNIRAG_RERANK_API_KEY"
+      }
+    }
+  },
+  "notes": [
+    "Phase 1 retrieval baseline must be collected before adaptive retrieval is enabled.",
+    "The bundled RAGFlow docker profile already defaults TEI_MODEL to Qwen/Qwen3-Embedding-0.6B.",
+    "Do not require reranking for the very first baseline run; record no-reranker and reranker runs separately.",
+    "Do not store API keys in this file."
+  ]
+}

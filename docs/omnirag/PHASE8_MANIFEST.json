@@ -1,0 +1,115 @@
+{
+  "phase": 8,
+  "release_stage": "prelocal_ready_v7",
+  "runtime_verified": false,
+  "live_experiments": "not_run",
+  "baseline_core_state": "frozen_unmodified",
+  "phase8_core_patch_targets": [],
+  "files": [
+    {
+      "path": "OMNIRAG.md",
+      "bytes": 748,
+      "sha256": "1b319bc53bde2bf205977fd58773e1d8be6d879f3c73b9858127f913b8544a95"
+    },
+    {
+      "path": "config/omnirag/phase8/release_policy.json",
+      "bytes": 867,
+      "sha256": "2c0e240d56ff9d8ebf9f7ea6adbde82475fab3b6e983417571d14516b9133505"
+    },
+    {
+      "path": "demos/omnirag/phase8/scenarios.json",
+      "bytes": 2159,
+      "sha256": "7f1a3e4fa30907964dca3de0d4213370463e0561bc5f8d539d65ede7faf9eb8a"
+    },
+    {
+      "path": "docs/omnirag/FINAL_README.md",
+      "bytes": 2449,
+      "sha256": "8a338c7cd64fb920619ec23a3a4fcc0c0c49a5265d97c7fa2253e581144bcc03"
+    },
+    {
+      "path": "docs/omnirag/FINAL_TECHNICAL_SUMMARY.md",
+      "bytes": 3379,
+      "sha256": "e1d0fe77a93c70079c44ee7be490f7bf63e2dbb1a904bc00621c5a4cb83b13de"
+    },
+    {
+      "path": "docs/omnirag/JOB_ALIGNMENT_AND_RESUME.md",
+      "bytes": 2899,
+      "sha256": "8bf68a18647c3c4bf02bd4787d44aa2db1d0787af6eb3f4febd59cb189d9de01"
+    },
+    {
+      "path": "docs/omnirag/INTERVIEW_PLAYBOOK.md",
+      "bytes": 2246,
+      "sha256": "8ce43dc6f920baf53dff80f840b569cc930e4b869830ee4e74445604793de68f"
+    },
+    {
+      "path": "docs/omnirag/FINAL_LOCAL_EXECUTION_PLAN.md",
+      "bytes": 2318,
+      "sha256": "f4a6bbce0a4c5c702aabe4e1b387135344287c78db413b251422859ea8593876"
+    },
+    {
+      "path": "docs/omnirag/phase8/ARCHITECTURE.dot",
+      "bytes": 1314,
+      "sha256": "9885b71a38fc17eb42ff69ca66498c7277f5dfd42ae7db24ecf526747abce307"
+    },
+    {
+      "path": "artifacts/omnirag/phase8/architecture.png",
+      "bytes": 87446,
+      "sha256": "f39bf6227e57f0bcd5d3bd0deb15d80bb4d95f336fa25571cf9278b2be5c4c0d"
+    },
+    {
+      "path": "artifacts/omnirag/phase8/architecture.svg",
+      "bytes": 11966,
+      "sha256": "75887715600bcb2e234aae740f6f3ea6ce3d56b5d327561ff2a7fd6a760d7a32"
+    },
+    {
+      "path": "artifacts/omnirag/phase8/final_release_status.json",
+      "bytes": 610,
+      "sha256": "69c1937710df42bd0bdcdbaf4e5054599957e42093147af5054dc65e1e70d150"
+    },
+    {
+      "path": "scripts/omnirag/phase8_claims_audit.py",
+      "bytes": 1367,
+      "sha256": "0f09fcd32525b5cf569f3b520a6e2c545bbff1bc1251336e2dff901c7bbbdeb3"
+    },
+    {
+      "path": "scripts/omnirag/phase8_demo_contracts.py",
+      "bytes": 784,
+      "sha256": "22685155029a7bb2777bdb43680e69bc44690f50e9ab4414cea55d55092231ca"
+    },
+    {
+      "path": "scripts/omnirag/phase8_release_status.py",
+      "bytes": 1643,
+      "sha256": "e200117737cb2c9183fa6b0988234a482e09f87db49e62e5a7df5659212bdda4"
+    },
+    {
+      "path": "scripts/omnirag/phase8_local_master.py",
+      "bytes": 1754,
+      "sha256": "00af8d39a6078afdf3bb03938551df7218c6013dffb19e0610858c2d3cd58c4e"
+    },
+    {
+      "path": "scripts/omnirag/phase8_final_acceptance.py",
+      "bytes": 1175,
+      "sha256": "f055ff3665251a4888ff524145fa6ac297ce3cdbea2f2e16c447c86bf56a13ac"
+    },
+    {
+      "path": "scripts/omnirag/phase8_generate_manifest.py",
+      "bytes": 2306,
+      "sha256": "8da222ed6e1d10a604bd08b5cad5ba856267cc4da705ac5600d4f3936c23bea4"
+    },
+    {
+      "path": "scripts/omnirag/phase8_verify_manifest.py",
+      "bytes": 936,
+      "sha256": "be1e238797c9097d8baf6326d119402fd6e156ea09a24974891494396a957a31"
+    },
+    {
+      "path": "tests/omnirag/test_phase8_release.py",
+      "bytes": 1288,
+      "sha256": "9e3850fd3f10d25926b0dd902716be452d6595da71610c2398ed1fdfe6294e81"
+    }
+  ],
+  "notes": [
+    "Phase 8 adds convergence, portfolio and execution orchestration assets only.",
+    "No new RAGFlow core patch is introduced.",
+    "Quantitative live claims require committed runtime artifacts."
+  ]
+}

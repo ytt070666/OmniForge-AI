@@ -1,0 +1,18 @@
+{
+  "product": "OmniOps Copilot inside OmniAI Modular Platform",
+  "version": "2.0.0",
+  "application_layer": "modular_v2",
+  "fastapi_gateway": "verified_in_process",
+  "demo_runtime": "verified",
+  "omnirag_regression_suite": "85 combined tests passed",
+  "ragflow_runtime": "not_run",
+  "langgraph_runtime": "deferred_external_env",
+  "llamaindex_runtime": "deferred_external_env",
+  "tensorflow_runtime": "deferred_external_env",
+  "nats_distributed_e2e": "deferred_external_env",
+  "polyglot_builds": "deferred_external_env",
+  "live_retrieval_metrics": "not_run",
+  "live_multimodal_metrics": "not_run",
+  "live_agent_metrics": "not_run",
+  "notes": "FastAPI product edge and deterministic demo are verified locally. External framework/container/GPU results remain unclaimed until target-machine execution."
+}

@@ -1,0 +1,18 @@
+--- a/agent/component/agent_with_tools.py
++++ b/agent/component/agent_with_tools.py
+@@ -221,6 +221,15 @@
+             self._param.prompts = [{"role": "user", "content": usr_pmt}]
+             _logger.debug("[Agent] Built user prompt with length=%d, reasoning=%s, context=%s", len(usr_pmt), bool(kwargs.get("reasoning")), bool(kwargs.get("context")))
+ 
++        # OmniRAG Phase 5: when explicitly enabled, expose only a policy-allowed
++        # per-query shortlist to the model and wrap execution with schema/budget
++        # guards. The helper is a strict no-op when the feature flag is off, so
++        # the native RAGFlow tool path remains unchanged by default.
++        if self.tools:
++            from extensions.omnirag.tools.integration import prepare_agent_tools
++
++            prepare_agent_tools(self, user_prompt_text)
++
+         if not self.tools:
+             if self.check_if_canceled("Agent processing"):
+                 return

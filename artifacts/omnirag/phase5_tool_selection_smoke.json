@@ -1,0 +1,167 @@
+{
+  "cases": 10,
+  "top1": 1.0,
+  "top3": 1.0,
+  "rows": [
+    {
+      "query": "Search our knowledge base for the contract renewal clause",
+      "expected": "search_docs_0",
+      "selected": [
+        "search_docs_0",
+        "search_runbook_3",
+        "weather_1"
+      ],
+      "scores": {
+        "search_docs_0": 0.351111,
+        "weather_1": 0.11,
+        "lookup_device_2": 0.1,
+        "search_runbook_3": 0.27,
+        "availability_4": 0.02
+      }
+    },
+    {
+      "query": "Find the paper about multimodal retrieval",
+      "expected": "search_docs_0",
+      "selected": [
+        "search_docs_0",
+        "weather_1",
+        "lookup_device_2"
+      ],
+      "scores": {
+        "search_docs_0": 0.216667,
+        "weather_1": 0.11,
+        "lookup_device_2": 0.1,
+        "search_runbook_3": 0.1,
+        "availability_4": 0.02
+      }
+    },
+    {
+      "query": "What is the weather forecast for Tokyo tomorrow?",
+      "expected": "weather_1",
+      "selected": [
+        "weather_1",
+        "search_runbook_3",
+        "search_docs_0"
+      ],
+      "scores": {
+        "search_docs_0": 0.03,
+        "weather_1": 0.3325,
+        "lookup_device_2": 0.02,
+        "search_runbook_3": 0.1,
+        "availability_4": 0.02
+      }
+    },
+    {
+      "query": "查询东京明天的天气预报",
+      "expected": "weather_1",
+      "selected": [
+        "weather_1",
+        "lookup_device_2",
+        "search_docs_0"
+      ],
+      "scores": {
+        "search_docs_0": 0.140476,
+        "weather_1": 0.525238,
+        "lookup_device_2": 0.191429,
+        "search_runbook_3": 0.130476,
+        "availability_4": 0.02
+      }
+    },
+    {
+      "query": "Look up device GW-01 in the asset catalog",
+      "expected": "lookup_device_2",
+      "selected": [
+        "lookup_device_2",
+        "search_docs_0",
+        "weather_1"
+      ],
+      "scores": {
+        "search_docs_0": 0.03,
+        "weather_1": 0.03,
+        "lookup_device_2": 0.365,
+        "search_runbook_3": 0.02,
+        "availability_4": 0.02
+      }
+    },
+    {
+      "query": "查询设备 GW-01 的资产信息",
+      "expected": "lookup_device_2",
+      "selected": [
+        "lookup_device_2",
+        "weather_1",
+        "search_docs_0"
+      ],
+      "scores": {
+        "search_docs_0": 0.143684,
+        "weather_1": 0.211053,
+        "lookup_device_2": 0.537895,
+        "search_runbook_3": 0.133684,
+        "availability_4": 0.02
+      }
+    },
+    {
+      "query": "Search the runbook for gateway reporting failures",
+      "expected": "search_runbook_3",
+      "selected": [
+        "search_runbook_3",
+        "search_docs_0",
+        "weather_1"
+      ],
+      "scores": {
+        "search_docs_0": 0.237143,
+        "weather_1": 0.11,
+        "lookup_device_2": 0.1,
+        "search_runbook_3": 0.445714,
+        "availability_4": 0.02
+      }
+    },
+    {
+      "query": "查找网关故障排查手册",
+      "expected": "search_runbook_3",
+      "selected": [
+        "search_runbook_3",
+        "search_docs_0",
+        "weather_1"
+      ],
+      "scores": {
+        "search_docs_0": 0.211053,
+        "weather_1": 0.143684,
+        "lookup_device_2": 0.133684,
+        "search_runbook_3": 0.470526,
+        "availability_4": 0.02
+      }
+    },
+    {
+      "query": "Calculate service availability from total and downtime minutes",
+      "expected": "availability_4",
+      "selected": [
+        "availability_4",
+        "search_docs_0",
+        "weather_1"
+      ],
+      "scores": {
+        "search_docs_0": 0.11,
+        "weather_1": 0.11,
+        "lookup_device_2": 0.02,
+        "search_runbook_3": 0.1,
+        "availability_4": 0.8025
+      }
+    },
+    {
+      "query": "根据总时长和停机时长计算可用率",
+      "expected": "availability_4",
+      "selected": [
+        "availability_4",
+        "weather_1",
+        "lookup_device_2"
+      ],
+      "scores": {
+        "search_docs_0": 0.03,
+        "weather_1": 0.052069,
+        "lookup_device_2": 0.042069,
+        "search_runbook_3": 0.042069,
+        "availability_4": 0.673793
+      }
+    }
+  ]
+}

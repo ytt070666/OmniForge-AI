@@ -1,0 +1,36 @@
+{
+  "version": "1.0",
+  "name": "grounded_qa",
+  "description": "Retrieve knowledge-base evidence, answer from evidence, then emit one message.",
+  "steps": [
+    {
+      "id": "retrieve",
+      "kind": "retrieval",
+      "depends_on": [],
+      "params": {
+        "dataset_ids": ["REPLACE_WITH_DATASET_ID"],
+        "query": "${sys.query}",
+        "top_n": 8,
+        "similarity_threshold": 0.2
+      }
+    },
+    {
+      "id": "answer",
+      "kind": "agent",
+      "depends_on": ["retrieve"],
+      "params": {
+        "llm_id": "REPLACE_WITH_LLM_ID",
+        "sys_prompt": "Answer only from the supplied evidence. State when evidence is insufficient.",
+        "user_prompt": "Question: ${sys.query}\n\nEvidence:\n${retrieve.formalized_content}"
+      }
+    },
+    {
+      "id": "respond",
+      "kind": "message",
+      "depends_on": ["answer"],
+      "params": {
+        "content": ["${answer.content}"]
+      }
+    }
+  ]
+}

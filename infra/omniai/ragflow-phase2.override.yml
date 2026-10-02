@@ -1,0 +1,10 @@
+# Apply only after the frozen Phase 1 baseline. Paths resolve from docker/.
+services:
+  ragflow-cpu:
+    environment:
+      OMNIRAG_ADAPTIVE_RETRIEVAL: '1'
+      OMNIRAG_ADAPTIVE_CANDIDATE: ${OMNIRAG_ADAPTIVE_CANDIDATE:-1}
+      OMNIRAG_ADAPTIVE_FINAL: ${OMNIRAG_ADAPTIVE_FINAL:-1}
+    volumes:
+      - ../rag/nlp/search.py:/ragflow/rag/nlp/search.py:ro
+      - ../extensions/omnirag:/ragflow/extensions/omnirag:ro

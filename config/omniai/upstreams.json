@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-09-29",
+  "policy": "Prefer package/service integration over vendoring. No upstream source tree is copied into this repository by OmniAI V2.",
+  "components": [
+    {
+      "name": "FastAPI Full Stack Template",
+      "repo": "https://github.com/fastapi/full-stack-fastapi-template",
+      "license": "MIT",
+      "integration": "architecture patterns only",
+      "role": "REST/OpenAPI, React separation, Docker/CI patterns"
+    },
+    {
+      "name": "LangGraph",
+      "repo": "https://github.com/langchain-ai/langgraph",
+      "license": "MIT",
+      "integration": "Python dependency in isolated agent service",
+      "role": "stateful agent orchestration"
+    },
+    {
+      "name": "LangChain",
+      "repo": "https://github.com/langchain-ai/langchain",
+      "license": "MIT",
+      "integration": "isolated learning lab",
+      "role": "LCEL/runnables/tools/model abstraction"
+    },
+    {
+      "name": "LlamaIndex",
+      "repo": "https://github.com/run-llama/llama_index",
+      "license": "MIT",
+      "integration": "isolated retrieval service",
+      "role": "index/retriever/query-engine learning and comparison"
+    },
+    {
+      "name": "Milvus",
+      "repo": "https://github.com/milvus-io/milvus",
+      "license": "Apache-2.0",
+      "integration": "optional Milvus Lite vector lab",
+      "role": "ANN/vector database learning"
+    },
+    {
+      "name": "NATS Python/Go clients",
+      "repo": "https://github.com/nats-io/nats.py",
+      "repo_go": "https://github.com/nats-io/nats.go",
+      "license": "Apache-2.0",
+      "integration": "optional distributed worker/event bus",
+      "role": "pub/sub and queue groups"
+    },
+    {
+      "name": "go-chi/chi",
+      "repo": "https://github.com/go-chi/chi",
+      "license": "MIT",
+      "integration": "Go realtime service dependency",
+      "role": "HTTP router/middleware for SSE gateway"
+    },
+    {
+      "name": "NestJS",
+      "repo": "https://github.com/nestjs/nest",
+      "license": "MIT",
+      "integration": "optional TypeScript BFF service",
+      "role": "Node.js backend/module/controller learning"
+    },
+    {
+      "name": "Spring Boot",
+      "repo": "https://github.com/spring-projects/spring-boot",
+      "license": "Apache-2.0",
+      "integration": "optional Java enterprise connector",
+      "role": "Java REST/service/actuator learning"
+    },
+    {
+      "name": "Spring AI",
+      "repo": "https://github.com/spring-projects/spring-ai",
+      "license": "Apache-2.0",
+      "integration": "reference/extension point, not in default runtime",
+      "role": "future Java-side model/tool/vector-store exercises"
+    },
+    {
+      "name": "TensorFlow Serving",
+      "repo": "https://github.com/tensorflow/serving",
+      "license": "Apache-2.0",
+      "integration": "reference deployment option for TensorFlow lab",
+      "role": "versioned HTTP/gRPC model serving"
+    },
+    {
+      "name": "OpenTelemetry Python",
+      "repo": "https://github.com/open-telemetry/opentelemetry-python",
+      "license": "Apache-2.0",
+      "integration": "gateway observability dependency/extension point",
+      "role": "distributed traces and context propagation"
+    },
+    {
+      "name": "Prometheus Python Client",
+      "repo": "https://github.com/prometheus/client_python",
+      "license": "Apache-2.0",
+      "integration": "gateway metrics endpoint",
+      "role": "request count/latency instrumentation"
+    },
+    {
+      "name": "Locust",
+      "repo": "https://github.com/locustio/locust",
+      "license": "MIT",
+      "integration": "load-test tool, no vendored code",
+      "role": "RPS/P50/P95/P99/error-rate exercises"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+--- a/rag/nlp/search.py
++++ b/rag/nlp/search.py
+@@ -262,7 +262,14 @@
+                     vector_weight = req.get("vector_similarity_weight", 0.3)
+                     fusionExpr = FusionExpr("weighted_sum", knn_top_k, {"weights": f"{1 - float(vector_weight)},{float(vector_weight)}"})
+                 else:
+-                    fusionExpr = FusionExpr("weighted_sum", knn_top_k, {"weights": "0.001,1"})
++                    # OmniRAG Phase-2 hook: preserve the upstream ES candidate
++                    # fusion unless the adaptive policy explicitly supplies a
++                    # candidate-stage vector weight.
++                    omnirag_candidate_vector_weight = req.get("omnirag_candidate_vector_weight")
++                    if omnirag_candidate_vector_weight is None:
++                        fusionExpr = FusionExpr("weighted_sum", knn_top_k, {"weights": "0.001,1"})
++                    else:
++                        fusionExpr = build_fusion_expr(knn_top_k, float(omnirag_candidate_vector_weight))
+                 matchExprs = [matchText, matchDense, fusionExpr] if matchText else [matchDense]
+ 
+                 res = await thread_pool_exec(self.dataStore.search, src, highlightFields, filters, matchExprs, orderBy, offset, limit, idx_names, kb_ids, rank_feature=rank_feature)
+@@ -625,6 +632,33 @@
+         if not question:
+             return ranks
+ 
++        # OmniRAG Phase-2 hook. The extension package is deliberately imported
++        # here (rather than at module import time) so the untouched baseline
++        # remains behaviorally identical when the feature flag is disabled.
++        from extensions.omnirag.retrieval.integration import maybe_adapt_retrieval
++
++        omnirag_decision = maybe_adapt_retrieval(
++            question=question,
++            vector_similarity_weight=vector_similarity_weight,
++            knn_top_k=knn_top_k,
++            knn_num_candidates=knn_num_candidates,
++        )
++        omnirag_candidate_vector_weight = None
++        if omnirag_decision.enabled:
++            vector_similarity_weight = omnirag_decision.final_vector_weight
++            knn_top_k = omnirag_decision.knn_top_k
++            knn_num_candidates = omnirag_decision.knn_num_candidates
++            omnirag_candidate_vector_weight = omnirag_decision.candidate_vector_weight
++            ranks["omnirag_retrieval"] = omnirag_decision.as_dict()
++            logging.info(
++                "[OmniRAG] route=%s candidate_vector_weight=%.3f final_vector_weight=%.3f knn_top_k=%s knn_num_candidates=%s",
++                omnirag_decision.route,
++                omnirag_decision.candidate_vector_weight,
++                omnirag_decision.final_vector_weight,
++                omnirag_decision.knn_top_k,
++                omnirag_decision.knn_num_candidates,
++            )
++
+         page = max(page, 1)
+         if page * page_size > rerank_candidates_count:
+             raise Exception(f"rerank_candidates_count({rerank_candidates_count}) must be greater than page * page_size({page * page_size}) to ensure correct pagination.")
+@@ -645,6 +679,8 @@
+             "knn_top_k": knn_top_k,
+             "knn_num_candidates": knn_num_candidates,
+         }
++        if omnirag_candidate_vector_weight is not None:
++            req["omnirag_candidate_vector_weight"] = omnirag_candidate_vector_weight
+         if isinstance(must_not, dict) and must_not:
+             req["must_not"] = must_not
+         logging.debug(f"[Search] page={page}, page_size={page_size}, rerank_candidates_count={rerank_candidates_count}")

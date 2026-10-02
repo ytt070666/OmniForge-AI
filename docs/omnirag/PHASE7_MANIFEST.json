@@ -1,0 +1,121 @@
+{
+  "baseline_core_state": "frozen_unmodified",
+  "container_build": "not_run_in_current_environment_docker_unavailable",
+  "files": [
+    {
+      "bytes": 1188,
+      "path": ".github/workflows/omnirag-ci.yml",
+      "sha256": "f706b81e969b1202e9eee1b9b9712c98a38bc670b1825c54132f39ec27e03eff"
+    },
+    {
+      "bytes": 1668,
+      "path": "artifacts/omnirag/phase7/dashboard.html",
+      "sha256": "1ec084eefb9283510e15149748108b29c4328fa60e49874a5a14083200835a51"
+    },
+    {
+      "bytes": 1620,
+      "path": "artifacts/omnirag/phase7/release_status.json",
+      "sha256": "abaaf508f4a0bbe580754190bfa7828cae37b4c6ed368f74d78dfdc0fbe6be78"
+    },
+    {
+      "bytes": 647,
+      "path": "config/omnirag/phase7/omnirag.env.example",
+      "sha256": "c43c387a17007cc6f9ad97f832b810b1211d8f013c810a959b195d8a9cb67d32"
+    },
+    {
+      "bytes": 1026,
+      "path": "deploy/omnirag/Dockerfile",
+      "sha256": "cf02bb6f8a669c0f591c9ef49f256d20bea96beb70985fb95c27b10090bea9fa"
+    },
+    {
+      "bytes": 1209,
+      "path": "deploy/omnirag/docker/docker-compose.omnirag.yml",
+      "sha256": "4e75215bf3f0c52e9e5c7fd6e50535c34d932faf54d1c4e707a538860b95637e"
+    },
+    {
+      "bytes": 398,
+      "path": "deploy/omnirag/k8s/configmap.yaml",
+      "sha256": "56486a445e1007c9791f3c01550535d83ec01bf10b83400daabf87c8cfbed710"
+    },
+    {
+      "bytes": 1578,
+      "path": "deploy/omnirag/k8s/deployment.yaml",
+      "sha256": "5d3ddde815eadc27562926647bd48b75b19b89a4d069e033b162d6851f42bc5c"
+    },
+    {
+      "bytes": 150,
+      "path": "deploy/omnirag/k8s/kustomization.yaml",
+      "sha256": "8ffb2d75a939dfcd8865606da9f252eb9f00cb7e869d86554be00f9cd6009ddb"
+    },
+    {
+      "bytes": 57,
+      "path": "deploy/omnirag/k8s/namespace.yaml",
+      "sha256": "5c705c703cbedf69e83097704d6eb2b147f3fd12c4327c1c18e5dfcd8edbc11c"
+    },
+    {
+      "bytes": 275,
+      "path": "deploy/omnirag/k8s/secret.example.yaml",
+      "sha256": "56543cc5d91f6e73e2dfaa1014d199ff9ec2b6a9574d6d8c9dfccd3a704c8eae"
+    },
+    {
+      "bytes": 299,
+      "path": "deploy/omnirag/k8s/service.yaml",
+      "sha256": "a4e834f7906faa5890ecba2b28b1f1e21cbc36773b1890e7660374a06a2cbc46"
+    },
+    {
+      "bytes": 1758,
+      "path": "docs/omnirag/PHASE7_ENGINEERING_PRODUCTIZATION.md",
+      "sha256": "9809e0ed82f15f661b3e0a8a6e2f6fed688eb60b39a43afde9d310fd4fd43805"
+    },
+    {
+      "bytes": 1270,
+      "path": "docs/omnirag/PHASE7_LOCAL_RUN_LATER.md",
+      "sha256": "ea426157aed3796c13ae2b53f9e894a0d7bc3400e494d296ec2ef06d58f65872"
+    },
+    {
+      "bytes": 1666,
+      "path": "docs/omnirag/PHASE7_PRELOCAL_REPORT.md",
+      "sha256": "86a308ccb20e67e0ef3778a031c0740480d87583d293f8101513b364ba235d63"
+    },
+    {
+      "bytes": 1068,
+      "path": "docs/omnirag/PORTFOLIO_README.md",
+      "sha256": "6699930c6997e578ada2c43c2b63e9683df3cae63921f53b70ac7ce8af24a69a"
+    },
+    {
+      "bytes": 60,
+      "path": "extensions/omnirag/product/__init__.py",
+      "sha256": "e656c1a94cbd1925c479a553c273329a97fc3b7779feba03f0ed97e46f5b10c7"
+    },
+    {
+      "bytes": 992,
+      "path": "extensions/omnirag/product/release_status.py",
+      "sha256": "8c759fe196bcf4ee8ea1f0143c3318a148d66689a04fee69dc8784051bfd286a"
+    },
+    {
+      "bytes": 1755,
+      "path": "scripts/omnirag/phase7_build_dashboard.py",
+      "sha256": "f78e4758f84267ab7c0c47038230c01b2b2494edf82e8caa5738986e0ae5e00d"
+    },
+    {
+      "bytes": 1777,
+      "path": "scripts/omnirag/phase7_generate_manifest.py",
+      "sha256": "1a760ae45606c05ee77a4956638393bc77e68adaca67ab3b133728564b0b0975"
+    },
+    {
+      "bytes": 2629,
+      "path": "scripts/omnirag/phase7_static_validate.py",
+      "sha256": "83fbb97a6430d60bf111923ee3da95f5d295edf66c817f3edca91e7026387a08"
+    },
+    {
+      "bytes": 1798,
+      "path": "scripts/omnirag/phase7_verify_runtime_source.py",
+      "sha256": "9d97ecae487f880dd1ced80c82a5328b80743250084bb771fdff4af1e3c6356e"
+    }
+  ],
+  "kubernetes_apply": "not_run_in_current_environment_kubectl_unavailable",
+  "live_metrics_policy": "missing live artifacts remain not_run",
+  "phase": 7,
+  "release_stage": "prelocal_ready",
+  "runtime_verified": false
+}

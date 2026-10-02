@@ -1,0 +1,33 @@
+{
+  "phase": "4",
+  "name": "memory_aware_agent_governance",
+  "feature_flags_default": {
+    "OMNIRAG_AGENT_GOVERNANCE": false,
+    "OMNIRAG_AGENT_MEMORY": false,
+    "OMNIRAG_AGENT_MEMORY_WRITE": false,
+    "OMNIRAG_AGENT_ALLOW_SEMANTIC_MEMORY_WRITE": false
+  },
+  "governance": {
+    "max_post_generation_retries": 3,
+    "default_retry_budget_source": "PlanningPolicyV1",
+    "terminal_tool_retry_location": "inside_RAGTools.rag",
+    "rejected_draft_streaming": false,
+    "abstention_on_exhaustion": true
+  },
+  "memory": {
+    "default_allowed_types": ["procedural", "episodic"],
+    "factual_evidence": false,
+    "citation_source": false,
+    "tenant_scope_required": true,
+    "rank_signal": "source_rank_from_RAGFlow_search_result",
+    "auto_write_requires_accept": true,
+    "auto_write_semantic_default": false
+  },
+  "integration": {
+    "native_planner_replaced": false,
+    "native_sufficient_context_replaced": false,
+    "native_query_rewriter_replaced": false,
+    "original_user_question_wired": true,
+    "phase3_evidence_verifier_reused": true
+  }
+}

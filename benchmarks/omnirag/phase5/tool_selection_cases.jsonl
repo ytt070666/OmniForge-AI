@@ -1,0 +1,10 @@
+{"query":"Search our knowledge base for the contract renewal clause","expected":"search_docs_0"}
+{"query":"Find the paper about multimodal retrieval","expected":"search_docs_0"}
+{"query":"What is the weather forecast for Tokyo tomorrow?","expected":"weather_1"}
+{"query":"查询东京明天的天气预报","expected":"weather_1"}
+{"query":"Look up device GW-01 in the asset catalog","expected":"lookup_device_2"}
+{"query":"查询设备 GW-01 的资产信息","expected":"lookup_device_2"}
+{"query":"Search the runbook for gateway reporting failures","expected":"search_runbook_3"}
+{"query":"查找网关故障排查手册","expected":"search_runbook_3"}
+{"query":"Calculate service availability from total and downtime minutes","expected":"availability_4"}
+{"query":"根据总时长和停机时长计算可用率","expected":"availability_4"}

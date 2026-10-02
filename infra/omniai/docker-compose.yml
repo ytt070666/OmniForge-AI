@@ -1,0 +1,109 @@
+name: omniai-modular-platform
+
+services:
+  gateway:
+    build:
+      context: ../..
+      dockerfile: infra/omniai/gateway.Dockerfile
+    environment:
+      OMNIOPS_MODE: ${OMNIOPS_MODE:-demo}
+      OMNIOPS_DATA_ROOT: /data/omniops
+      OMNIAI_AGENT_CONCURRENCY: ${OMNIAI_AGENT_CONCURRENCY:-4}
+      OMNIAI_RATE_LIMIT_PER_MINUTE: ${OMNIAI_RATE_LIMIT_PER_MINUTE:-240}
+      OMNIAI_JOB_BACKEND: ${OMNIAI_JOB_BACKEND:-local}
+      OMNIAI_NATS_URL: nats://nats:4222
+      OMNIAI_AGENT_URL: ${OMNIAI_AGENT_URL:-http://agent:8091}
+    ports: ["8090:8090"]
+    volumes: ["omniai_data:/data"]
+    profiles: ["core", "agent", "rag", "distributed", "polyglot", "ml", "observability"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8090/api/v1/health', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  nats:
+    image: nats:2.14.2
+    command: ["-js", "-sd", "/data"]
+    ports: ["4222:4222"]
+    volumes: ["nats_data:/data"]
+    profiles: ["distributed"]
+
+  agent:
+    build:
+      context: ../..
+      dockerfile: infra/omniai/agent.Dockerfile
+    environment:
+      OMNIOPS_MODE: ${OMNIOPS_MODE:-demo}
+      OMNIOPS_DATA_ROOT: /data/omniops
+    ports: ["8091:8091"]
+    volumes: ["omniai_data:/data"]
+    profiles: ["agent"]
+
+  agent-worker:
+    build:
+      context: ../..
+      dockerfile: infra/omniai/agent.Dockerfile
+    command: ["python", "-m", "services.omniai_agent.worker"]
+    environment:
+      OMNIOPS_MODE: ${OMNIOPS_MODE:-demo}
+      OMNIOPS_DATA_ROOT: /data/omniops
+      OMNIAI_NATS_URL: nats://nats:4222
+    volumes: ["omniai_data:/data"]
+    depends_on: [nats]
+    profiles: ["distributed"]
+
+  realtime:
+    build:
+      context: ../..
+      dockerfile: infra/omniai/realtime.Dockerfile
+    environment:
+      OMNIAI_NATS_URL: nats://nats:4222
+      OMNIAI_REALTIME_ADDR: :8092
+    ports: ["8092:8092"]
+    depends_on: [nats]
+    profiles: ["distributed"]
+
+  bff:
+    build:
+      context: ../..
+      dockerfile: infra/omniai/bff.Dockerfile
+    environment:
+      OMNIAI_GATEWAY_URL: http://gateway:8090
+      PORT: 8093
+    ports: ["8093:8093"]
+    depends_on: [gateway]
+    profiles: ["polyglot"]
+
+  llamaindex:
+    build:
+      context: ../..
+      dockerfile: infra/omniai/llamaindex.Dockerfile
+    ports: ["8094:8094"]
+    profiles: ["rag"]
+
+  tensorflow:
+    build:
+      context: ../..
+      dockerfile: infra/omniai/tensorflow.Dockerfile
+    ports: ["8095:8095"]
+    profiles: ["ml"]
+
+  enterprise-connector:
+    build:
+      context: ../..
+      dockerfile: infra/omniai/spring.Dockerfile
+    ports: ["8096:8096"]
+    profiles: ["polyglot"]
+
+  prometheus:
+    image: prom/prometheus:v3.7.3
+    command: ["--config.file=/etc/prometheus/prometheus.yml"]
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports: ["9090:9090"]
+    profiles: ["observability"]
+
+volumes:
+  omniai_data:
+  nats_data:

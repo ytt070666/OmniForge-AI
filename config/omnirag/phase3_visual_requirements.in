@@ -1,0 +1,5 @@
+# Optional dependencies for the real Phase-3 SigLIP2 visual encoder.
+# Keep these outside RAGFlow's main dependency graph until the target GPU/CUDA
+# environment is known. Pin exact working versions during the later local run.
+torch
+transformers

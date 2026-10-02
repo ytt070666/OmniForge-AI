@@ -1,0 +1,53 @@
+{
+  "dataset": {
+    "lineage_manifest": "benchmarks/omnirag/phase6/router/dataset_manifest.json",
+    "protected_benchmark": "benchmarks/omnirag/phase6/router/protected_benchmark.jsonl",
+    "test": "benchmarks/omnirag/phase6/router/test.jsonl",
+    "train": "benchmarks/omnirag/phase6/router/train.jsonl",
+    "validation": "benchmarks/omnirag/phase6/router/validation.jsonl"
+  },
+  "lora": {
+    "bias": "none",
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "r": 16,
+    "target_modules": "all-linear",
+    "task_type": "CAUSAL_LM"
+  },
+  "method": "lora",
+  "model_name_or_path": "Qwen/Qwen3-0.6B",
+  "output_dir": "artifacts/omnirag/phase6/router_adapter_lora",
+  "phase": "6",
+  "qlora": {
+    "bnb_4bit_compute_dtype": "bfloat16",
+    "bnb_4bit_quant_type": "nf4",
+    "bnb_4bit_use_double_quant": true,
+    "load_in_4bit": true
+  },
+  "safety_boundary": {
+    "advisory_only": true,
+    "may_authorize_execute_tools": false,
+    "may_authorize_write_tools": false,
+    "may_bypass_phase5_policy": false,
+    "may_replace_phase3_evidence_verifier": false
+  },
+  "schema_version": 1,
+  "sft": {
+    "bf16": true,
+    "eval_strategy": "epoch",
+    "gradient_accumulation_steps": 16,
+    "gradient_checkpointing": true,
+    "learning_rate": 0.0002,
+    "logging_steps": 10,
+    "max_length": 1024,
+    "num_train_epochs": 3,
+    "per_device_eval_batch_size": 1,
+    "per_device_train_batch_size": 1,
+    "report_to": "none",
+    "save_strategy": "epoch",
+    "seed": 20260917,
+    "warmup_ratio": 0.05,
+    "weight_decay": 0.0
+  },
+  "task_name": "omnirag_advisory_control_router"
+}

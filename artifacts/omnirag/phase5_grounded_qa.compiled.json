@@ -1,0 +1,250 @@
+{
+  "components": {
+    "begin": {
+      "obj": {
+        "component_name": "Begin",
+        "params": {
+          "enablePrologue": false,
+          "inputs": {},
+          "mode": "conversational",
+          "prologue": ""
+        }
+      },
+      "downstream": [
+        "Retrieval:Omni_retrieve"
+      ],
+      "upstream": []
+    },
+    "Retrieval:Omni_retrieve": {
+      "obj": {
+        "component_name": "Retrieval",
+        "params": {
+          "dataset_ids": [
+            "REPLACE_WITH_DATASET_ID"
+          ],
+          "query": "{sys.query}",
+          "similarity_threshold": 0.2,
+          "keywords_similarity_weight": 0.5,
+          "top_n": 8,
+          "rerank_candidates_count": 64,
+          "rerank_id": "",
+          "cross_languages": [],
+          "use_kg": false,
+          "toc_enhance": false,
+          "empty_response": "",
+          "outputs": {
+            "formalized_content": {
+              "type": "string",
+              "value": ""
+            }
+          }
+        }
+      },
+      "upstream": [
+        "begin"
+      ],
+      "downstream": [
+        "Agent:Omni_answer"
+      ]
+    },
+    "Agent:Omni_answer": {
+      "obj": {
+        "component_name": "Agent",
+        "params": {
+          "llm_id": "REPLACE_WITH_LLM_ID",
+          "sys_prompt": "Answer only from the supplied evidence. State when evidence is insufficient.",
+          "description": "",
+          "max_rounds": 5,
+          "max_retries": 2,
+          "temperature": 0.1,
+          "temperatureEnabled": false,
+          "cite": true,
+          "mcp": [],
+          "tools": [],
+          "prompts": [
+            {
+              "role": "user",
+              "content": "Question: {sys.query}\n\nEvidence:\n{Retrieval:Omni_retrieve@formalized_content}"
+            }
+          ],
+          "outputs": {
+            "content": {
+              "type": "string",
+              "value": ""
+            }
+          }
+        }
+      },
+      "upstream": [
+        "Retrieval:Omni_retrieve"
+      ],
+      "downstream": [
+        "Message:Omni_respond"
+      ]
+    },
+    "Message:Omni_respond": {
+      "obj": {
+        "component_name": "Message",
+        "params": {
+          "content": [
+            "{Agent:Omni_answer@content}"
+          ],
+          "stream": true
+        }
+      },
+      "upstream": [
+        "Agent:Omni_answer"
+      ],
+      "downstream": []
+    }
+  },
+  "history": [],
+  "path": [],
+  "retrieval": [],
+  "memory": [],
+  "globals": {
+    "sys.query": "",
+    "sys.user_id": "",
+    "sys.conversation_turns": 0,
+    "sys.files": [],
+    "sys.history": [],
+    "sys.date": ""
+  },
+  "variables": {},
+  "graph": {
+    "nodes": [
+      {
+        "id": "begin",
+        "type": "beginNode",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "data": {
+          "label": "Begin",
+          "name": "begin"
+        }
+      },
+      {
+        "id": "Retrieval:Omni_retrieve",
+        "type": "ragNode",
+        "position": {
+          "x": 260,
+          "y": 160
+        },
+        "data": {
+          "label": "Retrieval",
+          "name": "retrieve",
+          "form": {
+            "dataset_ids": [
+              "REPLACE_WITH_DATASET_ID"
+            ],
+            "query": "{sys.query}",
+            "similarity_threshold": 0.2,
+            "keywords_similarity_weight": 0.5,
+            "top_n": 8,
+            "rerank_candidates_count": 64,
+            "rerank_id": "",
+            "cross_languages": [],
+            "use_kg": false,
+            "toc_enhance": false,
+            "empty_response": "",
+            "outputs": {
+              "formalized_content": {
+                "type": "string",
+                "value": ""
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "Agent:Omni_answer",
+        "type": "agentNode",
+        "position": {
+          "x": 520,
+          "y": 320
+        },
+        "data": {
+          "label": "Agent",
+          "name": "answer",
+          "form": {
+            "llm_id": "REPLACE_WITH_LLM_ID",
+            "sys_prompt": "Answer only from the supplied evidence. State when evidence is insufficient.",
+            "description": "",
+            "max_rounds": 5,
+            "max_retries": 2,
+            "temperature": 0.1,
+            "temperatureEnabled": false,
+            "cite": true,
+            "mcp": [],
+            "tools": [],
+            "prompts": [
+              {
+                "role": "user",
+                "content": "Question: {sys.query}\n\nEvidence:\n{Retrieval:Omni_retrieve@formalized_content}"
+              }
+            ],
+            "outputs": {
+              "content": {
+                "type": "string",
+                "value": ""
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "Message:Omni_respond",
+        "type": "messageNode",
+        "position": {
+          "x": 780,
+          "y": 0
+        },
+        "data": {
+          "label": "Message",
+          "name": "respond",
+          "form": {
+            "content": [
+              "{Agent:Omni_answer@content}"
+            ],
+            "stream": true
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "omni-edge__begin-Retrieval:Omni_retrieve",
+        "source": "begin",
+        "sourceHandle": "start",
+        "target": "Retrieval:Omni_retrieve",
+        "targetHandle": "end"
+      },
+      {
+        "id": "omni-edge__Retrieval:Omni_retrieve-Agent:Omni_answer",
+        "source": "Retrieval:Omni_retrieve",
+        "sourceHandle": "start",
+        "target": "Agent:Omni_answer",
+        "targetHandle": "end"
+      },
+      {
+        "id": "omni-edge__Agent:Omni_answer-Message:Omni_respond",
+        "source": "Agent:Omni_answer",
+        "sourceHandle": "start",
+        "target": "Message:Omni_respond",
+        "targetHandle": "end"
+      }
+    ]
+  },
+  "omnirag_taskspec": {
+    "version": "1.0",
+    "name": "grounded_qa",
+    "description": "Retrieve knowledge-base evidence, answer from evidence, then emit one message.",
+    "step_id_map": {
+      "retrieve": "Retrieval:Omni_retrieve",
+      "answer": "Agent:Omni_answer",
+      "respond": "Message:Omni_respond"
+    }
+  }
+}

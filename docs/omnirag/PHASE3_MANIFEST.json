@@ -1,0 +1,50 @@
+{
+  "generated_at_utc": "2026-09-12T05:26:58.395694+00:00",
+  "project": "OmniRAG-Agent",
+  "baseline": {
+    "ragflow_version": "0.27.2",
+    "archive_commit": "a024bea0cd93f39e6652a42bf84dd20c55bc560b",
+    "core_modified": false
+  },
+  "phase2": {
+    "status": "implemented_not_applied",
+    "patch_target": "rag/nlp/search.py"
+  },
+  "phase3": {
+    "status": "implemented_not_applied",
+    "patch_target": "api/db/services/dialog_service.py",
+    "visual_encoder_default": "google/siglip2-base-patch16-384",
+    "generator_preferred": "Qwen3-VL-8B-Instruct",
+    "fusion": "query_adaptive_weighted_rrf",
+    "verifier": "deterministic_v1_report_only",
+    "benchmark": {
+      "assets": 6,
+      "queries": 18
+    },
+    "tests": {
+      "count": 17,
+      "status": "PASS"
+    },
+    "combined_patch_compile": "PASS"
+  },
+  "research_guards": [
+    "HashEncoderForTests is plumbing-only and must not be used for reported metrics.",
+    "Phase2 and Phase3 core patches are SHA-256 guarded and are not applied in this package.",
+    "GPU/CUDA-specific torch/transformers versions must be pinned during the later local run."
+  ],
+  "sha256": {
+    "patches/omnirag/phase2_adaptive_retrieval.patch": "42deb17192aabb6318c2e4315b4463de5e5c379509a553d9635674b03e24ca57",
+    "patches/omnirag/phase3_multimodal_verifier.patch": "e389bb1783f7e23759f381365271b54d6efce468eaba54381620385ea4e232a1",
+    "extensions/omnirag/multimodal/router.py": "4c3236e334a09d49f5a27ef09b8f5e8db11ebf79104259cff8fee76465039248",
+    "extensions/omnirag/multimodal/fusion.py": "b2227c18da26f7dd4924797ea162733af5f8196481208d2fd2733cd4deb17a9e",
+    "extensions/omnirag/multimodal/visual_index.py": "759b369228eb0cadc2d81a5bb0bcca17090b1f4bf536fabc4eadf1a84f078366",
+    "extensions/omnirag/multimodal/visual_encoder.py": "41ba51722bb0e46701fb96dee9fa756955ce197b745d2c36e0e19575e205ed9f",
+    "extensions/omnirag/multimodal/runtime.py": "ebc08fa13fff87a4a37242137749a620e430da07f1a18d708499b0bb0fd1214d",
+    "extensions/omnirag/multimodal/retrieved_images.py": "feb9b1dc90bda890b1b77a63b96c0d67eda2a31e27f88f6c5e2e4a0a1123a778",
+    "extensions/omnirag/verifier/evidence_graph.py": "717d4475f6b5b395d01c2e206fc8c5d30e6045b9fedb69ebd9372a262a455fc1",
+    "extensions/omnirag/verifier/runtime.py": "f417cf267583f7fad16d830e60d58cfd09fb01b68a46ab72ff3c8480cd959e2b",
+    "extensions/omnirag/verifier/semantic_judge.py": "5e03683e0f7590de629e22da1d2a1f0491da573ece55f33ae7e315e97c67c9c1",
+    "benchmarks/omnirag/phase3/queries.jsonl": "32e332cd75168801974445df89d369c958d6a9e6ebd4aa5e1fbda1c1a452d14c",
+    "benchmarks/omnirag/phase3/visual_records.jsonl": "f9cdbcd65007a8ad0de654ae411a1a2ef7f9c4d05ccb70a1fde9f0055e54e36f"
+  }
+}

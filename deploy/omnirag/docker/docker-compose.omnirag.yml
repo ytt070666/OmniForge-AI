@@ -1,0 +1,29 @@
+# Overlay for the upstream docker/docker-compose.yml.
+# Usage (from repo root):
+#   docker compose -f docker/docker-compose.yml -f deploy/omnirag/docker/docker-compose.omnirag.yml --profile gpu --profile elasticsearch up -d
+services:
+  ragflow-cpu:
+    build:
+      context: ..
+      dockerfile: deploy/omnirag/Dockerfile
+      args:
+        RAGFLOW_BASE_IMAGE: ${RAGFLOW_BASE_IMAGE:-infiniflow/ragflow:v0.27.2}
+    image: ${OMNIRAG_IMAGE:-omnirag-agent:phase7}
+    environment:
+      OMNIRAG_ADAPTIVE_RETRIEVAL: ${OMNIRAG_ADAPTIVE_RETRIEVAL:-0}
+      OMNIRAG_MULTIMODAL: ${OMNIRAG_MULTIMODAL:-0}
+      OMNIRAG_AGENT_GOVERNANCE: ${OMNIRAG_AGENT_GOVERNANCE:-0}
+      OMNIRAG_TOOL_GOVERNANCE: ${OMNIRAG_TOOL_GOVERNANCE:-0}
+
+  ragflow-gpu:
+    build:
+      context: ..
+      dockerfile: deploy/omnirag/Dockerfile
+      args:
+        RAGFLOW_BASE_IMAGE: ${RAGFLOW_BASE_IMAGE:-infiniflow/ragflow:v0.27.2}
+    image: ${OMNIRAG_IMAGE:-omnirag-agent:phase7}
+    environment:
+      OMNIRAG_ADAPTIVE_RETRIEVAL: ${OMNIRAG_ADAPTIVE_RETRIEVAL:-0}
+      OMNIRAG_MULTIMODAL: ${OMNIRAG_MULTIMODAL:-0}
+      OMNIRAG_AGENT_GOVERNANCE: ${OMNIRAG_AGENT_GOVERNANCE:-0}
+      OMNIRAG_TOOL_GOVERNANCE: ${OMNIRAG_TOOL_GOVERNANCE:-0}

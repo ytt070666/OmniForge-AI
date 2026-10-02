@@ -1,0 +1,6 @@
+fastapi>=0.128,<0.129
+uvicorn[standard]>=0.38,<0.49
+langgraph>=1.2.11,<1.3
+langchain-core>=1.6.3,<2
+nats-py>=2.11,<3
+mcp>=1.23,<2

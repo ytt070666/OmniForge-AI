@@ -1,0 +1,5 @@
+OmniRAG Phase-1 Baseline Document: Agent Memory
+
+An autonomous agent can use multiple memory categories. Semantic memory stores relatively stable facts and concepts. Episodic memory stores past events, previous task trajectories, and experiences. Procedural memory stores reusable rules, procedures, or skills for carrying out tasks. Working memory holds information needed for the current task and is usually short lived.
+
+A memory-aware planner can retrieve relevant prior experiences before choosing its next action. Useful memory ranking signals include relevance to the current task, importance, recency, frequency of use, and conflict with newer information.

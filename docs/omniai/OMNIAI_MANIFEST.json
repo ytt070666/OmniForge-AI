@@ -1,0 +1,586 @@
+{
+  "product": "OmniAI Modular Platform",
+  "version": "2.0.0",
+  "base": "OmniRAG-Agent + OmniOps Product V1",
+  "delivery": "modular-learning-and-integration-v2",
+  "runtime_verified": false,
+  "verified_here": {
+    "phase8_prelocal_acceptance": "PASS",
+    "omnirag_plus_omniai_tests": "85 passed",
+    "fastapi_http_selfcheck": "PASS",
+    "external_framework_runtime": "partially_deferred"
+  },
+  "deferred": [
+    "LangGraph isolated service runtime (package unavailable in this container)",
+    "LlamaIndex isolated service runtime",
+    "TensorFlow training/service runtime",
+    "Go dependency build",
+    "NestJS npm build",
+    "Spring Maven build",
+    "NATS distributed end-to-end",
+    "Docker Compose multi-service runtime",
+    "live RAGFlow/GPU benchmarks"
+  ],
+  "files": [
+    {
+      "path": "apps/omniops/run.py",
+      "sha256": "27d35ecddcacba2b078cec16ff4bd27c508e0fa26728aa821cb28b64b0e96d9b",
+      "bytes": 126
+    },
+    {
+      "path": "apps/omniops/web/app.js",
+      "sha256": "a33457579c3535d32249fead520def08240d339b8cc1d6e55a49ee3f27a731cb",
+      "bytes": 17555
+    },
+    {
+      "path": "benchmarks/omniai/load/locustfile.py",
+      "sha256": "bc9fabb39e7366180d8233722a927771b0a6b56e4889a9e84273d3b8b715573b",
+      "bytes": 680
+    },
+    {
+      "path": "benchmarks/omniai/load/README.md",
+      "sha256": "bd128a4c038f31a1825837312216840fb0bb1eabf92cc74ab4a3bad161d04b28",
+      "bytes": 386
+    },
+    {
+      "path": "config/omniai/upstreams.json",
+      "sha256": "f90c1c5fab0b0e49befd61739ea388f5cbea3a19593fb103408d586af88a9f6b",
+      "bytes": 3687
+    },
+    {
+      "path": "docs/omniai/ARCHITECTURE.md",
+      "sha256": "24644b4e27b7bb67a0d76519abd30ac616cb1329111527da49791757cf9a69ec",
+      "bytes": 2090
+    },
+    {
+      "path": "docs/omniai/GITHUB_REUSE_DECISIONS.md",
+      "sha256": "40547d50753fb0c87d49087400597fc69f61d592aee05dfa37423c93125cf63a",
+      "bytes": 2791
+    },
+    {
+      "path": "docs/omniai/INTEGRATION_REPORT.md",
+      "sha256": "9baa6a46853944d544704d1baed4cc422822e132a7812f9e48fe81654bf1151a",
+      "bytes": 2311
+    },
+    {
+      "path": "docs/omniai/LEARNING_PATH.md",
+      "sha256": "fcc55e96f2d12e36330319ae41c7d3aab1eb97ef7d5ff4e0a644bfa2c1242811",
+      "bytes": 1490
+    },
+    {
+      "path": "docs/omniai/UPSTREAM_COMPONENTS.md",
+      "sha256": "81353dffa6bd0707c1f3deebd65ef48e5d20842c9274d0b72f024ba3187a4ccb",
+      "bytes": 2584
+    },
+    {
+      "path": "docs/omnirag/OMNIOPS_DELIVERY.md",
+      "sha256": "d73f9f6aa308d7e276a9040e92d412c4efa9cd33ddae0caf64b3474938f4950f",
+      "bytes": 2414
+    },
+    {
+      "path": "docs/omnirag/OMNIOPS_PRODUCT.md",
+      "sha256": "1189294f18527fea2dccf5063adf7bac9b5271a5484ad31d662a90649216695d",
+      "bytes": 4082
+    },
+    {
+      "path": "infra/omniai/.env.example",
+      "sha256": "5d2f920102af35599b166a5038178e1506f9fcf258071ab1b47bdb64b3f9ffe0",
+      "bytes": 383
+    },
+    {
+      "path": "infra/omniai/agent.Dockerfile",
+      "sha256": "738ddf57ff8af900b75c09943b1ef2b6165a7f7646054bb7491e1f57fdf4e512",
+      "bytes": 470
+    },
+    {
+      "path": "infra/omniai/bff.Dockerfile",
+      "sha256": "f1f74469645fc97a8352d9cfa5472d8a49593cbc628f88b31975a0bcbd9984be",
+      "bytes": 428
+    },
+    {
+      "path": "infra/omniai/docker-compose.yml",
+      "sha256": "5bdc1ab934cbbc8908c681dde1542b90b30b04d372a793df48e3ed3f40951249",
+      "bytes": 2945
+    },
+    {
+      "path": "infra/omniai/gateway.Dockerfile",
+      "sha256": "ec2c2f405cc4968ada0dd9ab7faa01714132ead8fa010fc9850308155996f70c",
+      "bytes": 480
+    },
+    {
+      "path": "infra/omniai/llamaindex.Dockerfile",
+      "sha256": "65538ce7af1b1132683e7829e13338297416ad2ba70615048e3ae842a07cbb70",
+      "bytes": 416
+    },
+    {
+      "path": "infra/omniai/prometheus/prometheus.yml",
+      "sha256": "9fefc2d43c56f6f3b56a72b925dd46977e6c965c369f088e73db71a948703da9",
+      "bytes": 130
+    },
+    {
+      "path": "infra/omniai/ragflow-minimal.override.yml",
+      "sha256": "0f23925989e2befa89ea1594fa4f845013aec000398eebb600f6407d422f921e",
+      "bytes": 221
+    },
+    {
+      "path": "infra/omniai/README.md",
+      "sha256": "7d33a088c2e754a1186f90040a69f9eafd201ddb796c0d6b43b731941e70ed39",
+      "bytes": 602
+    },
+    {
+      "path": "infra/omniai/realtime.Dockerfile",
+      "sha256": "840e1e1b5de8e3e75afafed9557491dedbc68e1941393bd1ebe139653c599680",
+      "bytes": 354
+    },
+    {
+      "path": "infra/omniai/spring.Dockerfile",
+      "sha256": "a684decb3070bfd0e8abc7406cd0a1cb50be881a58357fea6d4f4a3090511aed",
+      "bytes": 371
+    },
+    {
+      "path": "infra/omniai/tensorflow.Dockerfile",
+      "sha256": "354117821cc5e04644a98c4042f4f5e9ddcea960b9a81919ca15980a76721a1d",
+      "bytes": 522
+    },
+    {
+      "path": "labs/django_admin/models_example.py",
+      "sha256": "41fc44cfe9fb62f56ca4b8625bb64bc771e52d1f8bc7f98353f24861419291a9",
+      "bytes": 504
+    },
+    {
+      "path": "labs/django_admin/README.md",
+      "sha256": "35d8c83115b7952ad47b753b1e5a08b84719c6ecb46bb0188fa9f9dd2db8e240",
+      "bytes": 379
+    },
+    {
+      "path": "labs/django_admin/requirements.txt",
+      "sha256": "67967f8886421b058b3b7deafae73ce9f93aff6d25a26c8dcec2b75e3356b42d",
+      "bytes": 15
+    },
+    {
+      "path": "labs/langchain_lab/README.md",
+      "sha256": "1f9a8ab6bc657206590dde0de51770663247fa6218a33d8012bc1ec53725a64a",
+      "bytes": 317
+    },
+    {
+      "path": "labs/langchain_lab/requirements.txt",
+      "sha256": "86ad4ca988e85b4c7f46923e8ef58e95344fc6dc0a1856a211726820aaeaa73d",
+      "bytes": 47
+    },
+    {
+      "path": "labs/langchain_lab/runnable_demo.py",
+      "sha256": "416488b0250c4b8d861b9697c7669cabbed2a96ac0ca29d1e413450527c1032b",
+      "bytes": 1162
+    },
+    {
+      "path": "labs/tensorflow_lab/features.py",
+      "sha256": "6ba9430e46e001b6376fb8e57cc919031a0faff7ea153869d080056312e413d8",
+      "bytes": 424
+    },
+    {
+      "path": "labs/tensorflow_lab/README.md",
+      "sha256": "822a4051075c8f9013d4ea998e30070570510c1d9f82fd1b01f118a4e17d152b",
+      "bytes": 371
+    },
+    {
+      "path": "labs/tensorflow_lab/requirements.txt",
+      "sha256": "827763ed17472fa72573caabebd5e54ed1e0cbb68d9c60cfaa371bc667dda023",
+      "bytes": 38
+    },
+    {
+      "path": "labs/tensorflow_lab/train.py",
+      "sha256": "029c9f19d9348af93d10405da13afd9a0e253bd7e5cc0f1266b600c30e510ba7",
+      "bytes": 2070
+    },
+    {
+      "path": "labs/vector_lab/cosine_search.py",
+      "sha256": "175fa682aac0a2ac6e99003f97b1ed950fcce5ceedca4c001f290d99d6e55c58",
+      "bytes": 992
+    },
+    {
+      "path": "labs/vector_lab/milvus_lite_demo.py",
+      "sha256": "f74b9f420e63a03d043b9b3304287880b07145bc2da2f0edfa21d2eeb4cda3a8",
+      "bytes": 1026
+    },
+    {
+      "path": "labs/vector_lab/README.md",
+      "sha256": "f9a4feead4ae779e869a77d4c1d37c89063774bf579c1d70feb5e2cbd61260ca",
+      "bytes": 323
+    },
+    {
+      "path": "labs/vector_lab/requirements.txt",
+      "sha256": "fc8a1840e29f8d3193f53ec29eb5678d716e3c605208868d1b31316c58b19aac",
+      "bytes": 30
+    },
+    {
+      "path": "OMNIAI.md",
+      "sha256": "b5af494d09210530c3fb1bbf2b6eebbf74e2491cb11addfc15c2924045502134",
+      "bytes": 1485
+    },
+    {
+      "path": "omniai_platform/__init__.py",
+      "sha256": "88ef10591a574abb511e62fb09bb71d0c79da25d9e01fe672551c95162ba5d7a",
+      "bytes": 430
+    },
+    {
+      "path": "omniai_platform/contracts.py",
+      "sha256": "41eaaa1f8a3483cb09dd120a7f0a53cecfc5a35dbedaa9b2a4d6f08cbef946b1",
+      "bytes": 1819
+    },
+    {
+      "path": "omniai_platform/http_contract.py",
+      "sha256": "43ce3e2c9d891793243d7fb8af154892be49fa7a241aaeccda8ba5c14428f729",
+      "bytes": 1667
+    },
+    {
+      "path": "omniai_platform/idempotency.py",
+      "sha256": "5650a1dd11802d1bc096154c826f5f805de34795a74c4e7b72624333b5bcadb1",
+      "bytes": 919
+    },
+    {
+      "path": "omniai_platform/jobs.py",
+      "sha256": "5338b1da676e8bffc4f48601ce9bc268f6e733f643a5d6ee629304cc193f19c8",
+      "bytes": 1957
+    },
+    {
+      "path": "omniai_platform/modules.py",
+      "sha256": "6521ec89fe8ecce31f4c43d758286f738cbb3e2cc817583746d1a2a69cf0ba47",
+      "bytes": 2805
+    },
+    {
+      "path": "omniai_platform/nats_jobs.py",
+      "sha256": "0ff0ab231f6d429b2b2ab3810d2e8f15ea185edca44f6a368694b671d97585a9",
+      "bytes": 3482
+    },
+    {
+      "path": "omniai_platform/rate_limit.py",
+      "sha256": "cf189e66d6144a5d2cfd772e60f29168f1cccddcd753992e67c4999b9b3317d0",
+      "bytes": 790
+    },
+    {
+      "path": "omniai_platform/resilience.py",
+      "sha256": "5bd0b534b873882dbf259bf3113e5ddbbe446fc602eb155864ff99fece55c8d8",
+      "bytes": 2705
+    },
+    {
+      "path": "OMNIOPS.md",
+      "sha256": "636e53d098fb54ca4ae4bb6ca3414d2ee1b0ef960bcbde6ead3a7d95d67f40ab",
+      "bytes": 769
+    },
+    {
+      "path": "scripts/omniai/dev.bat",
+      "sha256": "b80c0129175c0f35cbc1cdeee6b87e41d9887aee12173a5ed3319f8b50b20957",
+      "bytes": 105
+    },
+    {
+      "path": "scripts/omniai/dev.ps1",
+      "sha256": "4f24ea55a9b04840a1af10d0c98ca4ac5c703ddbbd8b2006739c690f81329acf",
+      "bytes": 5960
+    },
+    {
+      "path": "scripts/omniai/generate_manifest.py",
+      "sha256": "417be31ab577d1899d7172069f2b18119d6a7b39a1951dfed8c4f86ea6a99ba9",
+      "bytes": 2905
+    },
+    {
+      "path": "scripts/omniai/mcp_app.py",
+      "sha256": "96ef64c81c66b879ff2a87a79aa97d98e84f4360c0e8c8e791cf3bbdd5fe8616",
+      "bytes": 175
+    },
+    {
+      "path": "scripts/omniai/run_local_load.py",
+      "sha256": "3108cf9a824facc7216485ce23ceda6c23f0aa4caaee681d418896252e50e142",
+      "bytes": 3106
+    },
+    {
+      "path": "scripts/omniai/smoke_agent.py",
+      "sha256": "973c846b33fbc8d16ea33c407611bc319a6f1a541e19ae0193cf10b088cd7bd9",
+      "bytes": 1608
+    },
+    {
+      "path": "scripts/omniai/smoke_concurrency.py",
+      "sha256": "55fcadc22acade6164ca3ce3d58cd66b770679f948c40015d6a9341818e079d3",
+      "bytes": 885
+    },
+    {
+      "path": "scripts/omniai/smoke_distributed.py",
+      "sha256": "62aa98eee829ae0e8b8004ef6f1f6f0b4ad8afc7521a037a68b465a6f744cc80",
+      "bytes": 3814
+    },
+    {
+      "path": "scripts/omniai/smoke_gateway_contract.py",
+      "sha256": "0429057678c5641c4e270eb3210a8c3c20bccc0db906b814fc856f14292dc4f1",
+      "bytes": 3608
+    },
+    {
+      "path": "scripts/omniai/smoke_integrated.py",
+      "sha256": "e1d9e9d99d0077dcbd5654c01a14ec0de2bb3f67e471889e9c320ed2e9107e83",
+      "bytes": 6320
+    },
+    {
+      "path": "scripts/omniai/smoke_jetstream.py",
+      "sha256": "e17c752ba32d4eaddc875487303a9b9c2a29f9124a1f619bd250afa53c37f8e6",
+      "bytes": 1961
+    },
+    {
+      "path": "scripts/omniai/smoke_llamaindex.py",
+      "sha256": "292164447f70904039ea5381707140c5c8813cc83beac4aae0ead1418631d488",
+      "bytes": 1462
+    },
+    {
+      "path": "scripts/omniai/smoke_mcp.py",
+      "sha256": "2f35815238b76a91d0dfa33aec3ac4169e8f724a5572c49c64c28af5c01bdc8b",
+      "bytes": 2602
+    },
+    {
+      "path": "scripts/omniai/smoke_optional_contract.py",
+      "sha256": "c8e04fab3fbd54ae38018be6cc7dfe3fd6b03a19dbb7849c8094f77d57f7888c",
+      "bytes": 2034
+    },
+    {
+      "path": "scripts/omniai/smoke_polyglot.py",
+      "sha256": "56409eadef5da29ca8813d494d7e2d567f7777e8f16756d650b14f411ae6387c",
+      "bytes": 3796
+    },
+    {
+      "path": "scripts/omniai/smoke_realtime.py",
+      "sha256": "1cfc919694f653828d6b06fa0cdc31d31aaf72be7cc114147074e558b4437c58",
+      "bytes": 3113
+    },
+    {
+      "path": "scripts/omniai/smoke_router_inference.py",
+      "sha256": "54413112e2ccac9f990a4e55beb6343fba15a983bb548fe4cac4cc259634ecbb",
+      "bytes": 1674
+    },
+    {
+      "path": "scripts/omniai/smoke_tensorflow.py",
+      "sha256": "277f6cd766c374354fed556cbb606c63516d7039334bbdd906cb67efb8a6ad47",
+      "bytes": 858
+    },
+    {
+      "path": "scripts/omniai/smoke_vector.py",
+      "sha256": "1be19af638966310b2471d6d11d4197c3574e65c66df3a4beb86be0db643fee1",
+      "bytes": 930
+    },
+    {
+      "path": "scripts/omniai/validate_platform.py",
+      "sha256": "82e720959629189362147bdd2e2c9468b5b071ad3b45fc9b8288a3e98b64d5ae",
+      "bytes": 2657
+    },
+    {
+      "path": "scripts/omniai/verify_manifest.py",
+      "sha256": "6ddde0e50f13ab523a81c2acb6585fa12cd402799f1444b6c6e666cb0baf9b6c",
+      "bytes": 1021
+    },
+    {
+      "path": "scripts/omnirag/omniops_selfcheck.py",
+      "sha256": "62848ddaa729545b6f38fabe8d4fc1a999e45b022df4712e224e27c81146e212",
+      "bytes": 3696
+    },
+    {
+      "path": "scripts/omnirag/run_omniops.py",
+      "sha256": "ced90213fc0e372204c509c5ea4898569c95ebbecda4febfcf2dc5dfefb16caa",
+      "bytes": 364
+    },
+    {
+      "path": "services/omniai_agent/__init__.py",
+      "sha256": "1c89160bec2ecd71d8230d3c83da59e9428fefdd0e5b58662978d82a0374d0e4",
+      "bytes": 50
+    },
+    {
+      "path": "services/omniai_agent/app.py",
+      "sha256": "e35901b785b990b8b02551c9544f827178b174d83c5f428883343be30796ea3a",
+      "bytes": 1550
+    },
+    {
+      "path": "services/omniai_agent/graph.py",
+      "sha256": "81e53b6c4c3b1f49fdfc6c6c426ccefb640cc867e84d53ca9e1c79aa15d6b0da",
+      "bytes": 2633
+    },
+    {
+      "path": "services/omniai_agent/README.md",
+      "sha256": "57e10583029909e46bd26f37b911a508eb64e45de88a196a494778d355dfb6cf",
+      "bytes": 559
+    },
+    {
+      "path": "services/omniai_agent/requirements.txt",
+      "sha256": "3509ffc9a7f0474a8379af8b38e0c500c6eb134a85921aa053f9018910eaf45b",
+      "bytes": 130
+    },
+    {
+      "path": "services/omniai_agent/runtime.py",
+      "sha256": "d55f2c8b63cbaef37b69a62b91ad69cc17f854b8e0dba5f295a9132a3c2c4367",
+      "bytes": 3093
+    },
+    {
+      "path": "services/omniai_agent/worker.py",
+      "sha256": "d02c9e0c9f9897f3c1ed4cfa6557fc981e952c8ef00982bd553849224a9af7f4",
+      "bytes": 2248
+    },
+    {
+      "path": "services/omniai_bff_nest/package-lock.json",
+      "sha256": "af1484e5394ff1adcd3ac08de1b23beb25f79ca9df1ec9c3ad6a69e6c7803a75",
+      "bytes": 62353
+    },
+    {
+      "path": "services/omniai_bff_nest/package.json",
+      "sha256": "42fb35d0d874b0032ad96e8f2f559ff1202d42cb26a4481e0cf481bf81ce506e",
+      "bytes": 494
+    },
+    {
+      "path": "services/omniai_bff_nest/README.md",
+      "sha256": "ffffeaf97395262e7302154dc5feb6cd5df7e78e442fe8ce9f1561703629e088",
+      "bytes": 266
+    },
+    {
+      "path": "services/omniai_bff_nest/src/main.ts",
+      "sha256": "8df534bd8167875ca9fa07cdc7d3ae10443790946703d98d98cace2283e8d3bc",
+      "bytes": 1716
+    },
+    {
+      "path": "services/omniai_bff_nest/tsconfig.json",
+      "sha256": "630560255ec70e15082935c9453a70a6fc6888d78ba91320a813a11526bcd379",
+      "bytes": 307
+    },
+    {
+      "path": "services/omniai_enterprise_spring/pom.xml",
+      "sha256": "9cfea63aeb28ee92f74fbe1457c835333296106dfcd2cf677eb00ddfc2998e65",
+      "bytes": 1204
+    },
+    {
+      "path": "services/omniai_enterprise_spring/README.md",
+      "sha256": "2befa3ae79b5e0b0d9a4b071e2dbd94bc36dd04cf256d5adc434be8636d6c9ed",
+      "bytes": 404
+    },
+    {
+      "path": "services/omniai_enterprise_spring/src/main/java/com/omniai/connector/AssetController.java",
+      "sha256": "4ff5b5db9be7e535d28c9cced3169a17ebfcb3db851c482520f7770507f80fe9",
+      "bytes": 1570
+    },
+    {
+      "path": "services/omniai_enterprise_spring/src/main/java/com/omniai/connector/ConnectorApplication.java",
+      "sha256": "2a693f0e859532af1a716d111954569420f413789c062f64c706790d18f810f6",
+      "bytes": 329
+    },
+    {
+      "path": "services/omniai_enterprise_spring/src/main/java/com/omniai/connector/HealthController.java",
+      "sha256": "bda4f88b59380ff55b1b0143491c09d91632408519690858d94c02c23699699a",
+      "bytes": 883
+    },
+    {
+      "path": "services/omniai_gateway/__init__.py",
+      "sha256": "01cbfd64c32ab717b52d3b776ecc2f3b7ad94ff5bcced7b265a2e909c1646d3b",
+      "bytes": 55
+    },
+    {
+      "path": "services/omniai_gateway/app.py",
+      "sha256": "c81c7480a70c15fa6e35dc90607b9404cd691bbdf796bbed348d7f606ddccba3",
+      "bytes": 15379
+    },
+    {
+      "path": "services/omniai_gateway/main.py",
+      "sha256": "ace80b9eda478c6f1125b9a449d0d57fff232501d7acbfe18664bab49cc9aeb1",
+      "bytes": 642
+    },
+    {
+      "path": "services/omniai_gateway/README.md",
+      "sha256": "90f14792755c8c1be7ad57df46071a508444a6d8fc761ddd711aec0f3ebd45d5",
+      "bytes": 586
+    },
+    {
+      "path": "services/omniai_gateway/requirements.txt",
+      "sha256": "527291cc50373747e7a7ddf3dac41f855259d5b1f7e5e0c995505b33a8f2da18",
+      "bytes": 235
+    },
+    {
+      "path": "services/omniai_gateway/settings.py",
+      "sha256": "f3daa3a95b88d98e36b083909bf46d5ff943abd9a99c85db0de869fa993aad28",
+      "bytes": 1093
+    },
+    {
+      "path": "services/omniai_llamaindex/__init__.py",
+      "sha256": "2f31d7ee1b9d4ccdc947a54f8e0cd7999d7845971a26cc5349e9aac6a8648b65",
+      "bytes": 45
+    },
+    {
+      "path": "services/omniai_llamaindex/app.py",
+      "sha256": "07d082ca9d232d25af6a3e98450d556f0fbfc78895ef8f631bf50a48d384463f",
+      "bytes": 3501
+    },
+    {
+      "path": "services/omniai_llamaindex/README.md",
+      "sha256": "1ba3a8e5f335469de620166f872b8958937f3f4659c9e40b2e8cf3df0e494fa1",
+      "bytes": 369
+    },
+    {
+      "path": "services/omniai_llamaindex/requirements.txt",
+      "sha256": "b6ab672b5d574d67c54838e92cc31a1d315796ab3046c5bd1e35450b33971df7",
+      "bytes": 181
+    },
+    {
+      "path": "services/omniai_realtime_go/go.mod",
+      "sha256": "2e70a7e6e1d934d44097b1a34935295008df6a8f1efb7075ebd044a612579b9c",
+      "bytes": 361
+    },
+    {
+      "path": "services/omniai_realtime_go/go.sum",
+      "sha256": "fc6ebf9c33efae33a5bc59056f00fc50d55c2dcf7e25288019018c3005e07f83",
+      "bytes": 1165
+    },
+    {
+      "path": "services/omniai_realtime_go/main.go",
+      "sha256": "409651b92b66a66b648a383b3aaba6c0d1a55b32b9426b6ff4b721d6f99fb573",
+      "bytes": 3869
+    },
+    {
+      "path": "services/omniai_realtime_go/README.md",
+      "sha256": "a3c360ae43e8357e70c22e23de2222fc6d64183f7b70559ed060efdf93daf760",
+      "bytes": 317
+    },
+    {
+      "path": "services/omniai_realtime_go/realtime.exe",
+      "sha256": "e3fb795717897c9a28f3182048bfa30708526b9a2b21e8b24b3732bdfd9a3fa4",
+      "bytes": 11238400
+    },
+    {
+      "path": "services/omniai_tensorflow/__init__.py",
+      "sha256": "f6922895827a2ddd0d789431d8e0a789f610e31348ab81d9636750f8e8c84000",
+      "bytes": 59
+    },
+    {
+      "path": "services/omniai_tensorflow/app.py",
+      "sha256": "10654cd00065934ed09eb3e443a4f9913a7d2fa77bb5ac2e2e785f3168910882",
+      "bytes": 1949
+    },
+    {
+      "path": "services/omniai_tensorflow/README.md",
+      "sha256": "552d69dcd3a8c0eeb2dddab4e011712610edfa38120c180aba995976cd4ebc3c",
+      "bytes": 253
+    },
+    {
+      "path": "services/omniai_tensorflow/requirements.txt",
+      "sha256": "0f17588898c697595b465c412f357771a47e071e45d05684e8ed60f72ba5ee35",
+      "bytes": 108
+    },
+    {
+      "path": "tests/omniai/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "tests/omniai/test_fastapi_gateway.py",
+      "sha256": "f54848d9d226b9266c2194650bc618b03fa6bafeb4ce40ba4312cc90d78c7e10",
+      "bytes": 928
+    },
+    {
+      "path": "tests/omniai/test_modular_platform.py",
+      "sha256": "54e2e928a8841359b5ba5606f68e7901f7da9d50a736233207a957232dbf4c24",
+      "bytes": 3608
+    },
+    {
+      "path": "THIRD_PARTY_OMNIAI.md",
+      "sha256": "07f0f3334801d8b8c933f212aacb1c7fae8810addd638aab8334fe16d4ea6020",
+      "bytes": 566
+    }
+  ]
+}

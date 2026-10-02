@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omnirag-ragflow
+  namespace: omnirag
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: omnirag-ragflow
+  template:
+    metadata:
+      labels:
+        app: omnirag-ragflow
+    spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: ragflow
+          image: omnirag-agent:phase7
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: api
+              containerPort: 9380
+            - name: web
+              containerPort: 80
+            - name: mcp
+              containerPort: 9382
+          envFrom:
+            - configMapRef:
+                name: omnirag-runtime
+            - secretRef:
+                name: omnirag-secrets
+                optional: true
+          readinessProbe:
+            httpGet:
+              path: /api/v1/system/ping
+              port: api
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 12
+          livenessProbe:
+            httpGet:
+              path: /api/v1/system/ping
+              port: api
+            initialDelaySeconds: 90
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 6
+          resources:
+            requests:
+              cpu: "2"
+              memory: 8Gi
+            limits:
+              cpu: "8"
+              memory: 24Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]

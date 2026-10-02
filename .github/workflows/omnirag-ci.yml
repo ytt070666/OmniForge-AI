@@ -1,0 +1,46 @@
+name: OmniRAG CI
+on:
+  pull_request:
+    paths:
+      - 'extensions/omnirag/**'
+      - 'scripts/omnirag/**'
+      - 'patches/omnirag/**'
+      - 'config/omnirag/**'
+      - 'deploy/omnirag/**'
+      - 'docs/omnirag/**'
+      - 'tests/omnirag/**'
+      - '.github/workflows/omnirag-ci.yml'
+  push:
+    branches: [main, dev]
+    paths:
+      - 'extensions/omnirag/**'
+      - 'scripts/omnirag/**'
+      - 'patches/omnirag/**'
+      - 'config/omnirag/**'
+      - 'deploy/omnirag/**'
+      - 'docs/omnirag/**'
+      - 'tests/omnirag/**'
+      - '.github/workflows/omnirag-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  static-contracts:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Run OmniRAG pre-local contracts
+        run: python scripts/omnirag/phase7_static_validate.py
+
+  container-build:
+    runs-on: ubuntu-24.04
+    needs: static-contracts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build exact reviewed runtime image
+        run: docker build -f deploy/omnirag/Dockerfile -t omnirag-agent:ci .

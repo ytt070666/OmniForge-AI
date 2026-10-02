@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OmniOps Copilot</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div><strong>OmniOps</strong><span>Copilot</span></div></div>
+    <nav id="nav">
+      <button data-view="dashboard" class="nav-item active"><span>⌂</span>总览</button>
+      <button data-view="chat" class="nav-item"><span>✦</span>AI 工作台</button>
+      <button data-view="incidents" class="nav-item"><span>⚑</span>事件中心</button>
+      <button data-view="knowledge" class="nav-item"><span>▤</span>知识库</button>
+      <button data-view="evidence" class="nav-item"><span>◎</span>证据中心</button>
+      <button data-view="traces" class="nav-item"><span>↯</span>Agent Trace</button>
+      <button data-view="tools" class="nav-item"><span>⌘</span>MCP / Tools</button>
+      <button data-view="evaluation" class="nav-item"><span>▥</span>评测</button>
+    </nav>
+    <div class="side-footer"><div class="status-dot"></div><div><small>Runtime</small><strong id="runtime-label">Loading...</strong></div></div>
+  </aside>
+  <main>
+    <header class="topbar">
+      <div><h1 id="page-title">运行总览</h1><p id="page-subtitle">企业多模态智能运维与安全分析 Agent</p></div>
+      <div class="top-actions"><button id="reset-demo" class="ghost">重置 Demo</button><div class="avatar">OA</div></div>
+    </header>
+    <section id="content" class="content"></section>
+  </main>
+</div>
+<div id="toast" class="toast"></div>
+<script src="/app.js"></script>
+</body>
+</html>

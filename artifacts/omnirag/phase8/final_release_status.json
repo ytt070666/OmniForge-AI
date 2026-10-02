@@ -1,0 +1,22 @@
+{
+  "project": "OmniRAG-Agent",
+  "upstream": "RAGFlow v0.27.2",
+  "stage": "prelocal_ready_v7",
+  "generated_at_utc": "2026-09-29T05:52:03.008972+00:00",
+  "runtime_verified": false,
+  "static_validation": "pass",
+  "core_baseline": "frozen_unmodified",
+  "live_experiments": "not_run",
+  "docker_runtime": "not_run",
+  "kubernetes_apply": "not_run",
+  "gpu_models": "not_run",
+  "deliverables": {
+    "final_readme": true,
+    "technical_summary": true,
+    "resume_pack": true,
+    "interview_playbook": true,
+    "local_master_runbook": true,
+    "architecture_svg": true,
+    "demo_scenarios": true
+  }
+}

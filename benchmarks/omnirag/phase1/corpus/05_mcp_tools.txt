@@ -1,0 +1,5 @@
+OmniRAG Phase-1 Baseline Document: MCP Tools
+
+Model Context Protocol (MCP) provides a standard interface that lets an AI application connect to external capabilities and context providers. An MCP server can expose tools, resources, and prompts. An MCP client discovers available capabilities and invokes them through the protocol.
+
+In OmniRAG-Agent, planned MCP examples include a database tool server, a document server, a Python execution server, and an enterprise HTTP API server. The project will use MCP for dynamic tool discovery rather than hard-coding every integration inside the agent.
