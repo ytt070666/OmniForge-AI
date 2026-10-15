@@ -1,13 +1,14 @@
 # OmniForge AI
 
-**OmniForge AI** 是一个面向大模型应用开发的源码与学习合集。仓库以 [RAGFlow v0.27.2](https://github.com/infiniflow/ragflow) 为基础，整理了 **OmniRAG-Agent** 的检索与 Agent 研究扩展、**OmniOps Copilot** 应用，以及 **OmniAI Modular Platform V2** 的模块化服务和动手实验。
+**OmniForge AI** 是基于 [RAGFlow v0.27.2](https://github.com/infiniflow/ragflow) 的个人 RAG 与 Agent 研究扩展项目，包含 **OmniRAG-Agent** 检索与治理扩展、**OmniOps Copilot** 事件分析演示应用，以及 **OmniAI Modular Platform V2** 的模块化服务与学习实验。个人扩展主要集中在查询自适应混合检索、视觉侧索引与融合、规则式证据校验，以及有界 Agent 和只读工具治理模块。
 
-这里既有可以独立阅读的专题笔记，也有 API、Agent、向量检索、多模态、分布式通信和多语言服务的实现。它适合按模块学习、在本地复现实验，并作为继续开发的起点。仓库中的代码和静态检查结果不等于完整的线上质量或生产部署证明；具体边界见下方的[验证状态](#验证状态与复现原则)。
+**当前定位为持续开发与验证中的研究原型。** Phase 2 自适应检索与 Phase 3 视觉/校验扩展已进入部分 RAGFlow 主链路；Phase 4/5 的 Agent、记忆、工具治理模块及补丁已提供，原生入口的完整接入仍待完成。真实 RAG 质量实验仍记录为 `not_run`，本仓库暂不提供性能提升、通用自主处置或生产可用性的结论。详见[实现状态](#实现状态与个人扩展边界)及[验证状态](#验证状态与复现原则)。
 
 > **命名说明**：OmniForge AI 是本 GitHub 仓库的名称；代码中沿用 `OmniAI`、`OmniRAG` 和 `OmniOps` 命名，分别指模块化集成层、研究扩展层和产品应用层。上游 RAGFlow 的原始说明保留在 [RAGFLOW_README.md](RAGFLOW_README.md)。
 
 ## 目录
 
+- [实现状态与个人扩展边界](#实现状态与个人扩展边界)
 - [项目组成](#项目组成)
 - [系统架构](#系统架构)
 - [功能与代码位置](#功能与代码位置)
@@ -17,6 +18,23 @@
 - [学习路线](#学习路线)
 - [验证状态与复现原则](#验证状态与复现原则)
 - [数据、安全与许可](#数据安全与许可)
+
+## 实现状态与个人扩展边界
+
+以下状态于 **2026-10-15** 核对，对应功能源码快照 `4a4b051d8fa4db3635c8276681188e1890f6b4fe`；文档修订本身不代表完成了新的运行验证。
+
+| 范围 | 当前公开实现 | 尚未完成的验证或接入 |
+| --- | --- | --- |
+| 上游 RAGFlow | 文档解析、分块、Embedding/模型适配、知识库、基础混合检索、引用、Canvas、Memory 与 MCP | 这些主要继承上游，不能计为个人从零实现 |
+| Phase 2 自适应检索 | 根据查询特征分别调整候选召回与最终排序权重、候选池；`rag/nlp/search.py` 已有可开关 hook | 人工规则与权重仍需固定基线、消融实验和真实质量评测 |
+| Phase 3 多模态与证据校验 | SigLIP2 适配、JSONL 视觉侧索引、加权 RRF、原图读取及规则式证据校验；普通 `async_chat()` 已有 hook | 真实索引、图文问答效果和原生 Agent 原图闭环仍待验证；HashEncoder 仅用于测试 |
+| Phase 4/5 Agent、记忆与工具 | 有界补查、防循环、策略记忆、工具短名单、参数校验、调用预算、审计及 TaskSpec 编译模块/补丁 | 当前原生 `agentic_rag.py`、`agent_with_tools.py` 尚未见对应治理 hook，不能视为全部接入 |
+| OmniOps 应用 | 事件、聊天、证据、轨迹、文件暂存和可选 RAGFlow HTTP 接入 | demo 使用模板答案，部分查询/补查为模拟；上传是暂存，不自动完成解析入库 |
+| 独立 LangGraph 服务 | `StateGraph` 编排分类、检索、工具、生成、校验和有限重试 | 检索主要读取事件已存证据，工具结果尚未完整进入生成上下文；不能据此推定端到端自主处置 |
+| 网关与服务集成 | FastAPI、202 异步任务、SSE、限流、幂等入口、可选 NATS 和独立框架服务 | 任务状态主要在进程内，持久恢复、多网关一致性及生产认证边界仍需补齐 |
+| 路由训练与质量评测 | LoRA/QLoRA 脚本、小型合成数据、规则基线和离线 smoke 产物 | 真实 RAG、学习路由保护集比较与晋升尚未完成；不能据此声称训练收益 |
+
+源码归属及调用链见 [SOURCE_MAP](docs/omnirag/SOURCE_MAP.md)。该文档保存了 Phase 1 的“保护未改动基线”约定；当前版本已合入 Phase 2/3 hook，因此不能继续把当前检索和聊天文件描述为 `frozen_unmodified`。实际接入以 [检索入口](rag/nlp/search.py)、[聊天入口](api/db/services/dialog_service.py)及对应阶段代码为准。
 
 ## 项目组成
 
@@ -38,15 +56,15 @@ flowchart TD
     G --> O[OmniOps 应用与异步任务]
     G -. 可选 .-> A[LangGraph Agent :8091]
     O -. 真实 RAGFlow 模式 .-> R[RAGFlow 知识库与检索]
-    A --> E[OmniRAG 扩展与证据校验]
-    E --> R
-    G -. 分布式模式 .-> N[NATS / JetStream]
+    A --> E[独立 Agent 回调与证据校验]
+    R --> X[已接入的 Phase 2/3 扩展]
+    G -. 分布式模式 .-> N[NATS；JetStream 为独立实验]
     N --> W[Agent Worker]
     N --> S[Go 实时 SSE :8092]
     G -. 独立学习服务 .-> L[LlamaIndex / TensorFlow / NestJS / Spring]
 ```
 
-网关负责 HTTP 接入、OpenAPI、请求标识、限流、并发边界、幂等请求和异步任务接口。Agent、索引与模型服务保持独立依赖环境，避免把不同框架的依赖强行放进 RAGFlow 的 Python 环境。任务后端可以使用本地实现或 NATS；本地任务管理器只适用于单进程演示。详细设计见[架构文档](docs/omniai/ARCHITECTURE.md)与[集成报告](docs/omniai/INTEGRATION_REPORT.md)。
+网关负责 HTTP 接入、OpenAPI、请求标识、限流、并发边界、幂等请求和异步任务接口。Agent、索引与模型服务保持独立依赖环境，避免把不同框架的依赖强行放进 RAGFlow 的 Python 环境。任务后端可以使用本地实现或 NATS；两者的任务状态仍主要保存在进程内，当前不能由 NATS 分发推定已具备持久恢复。详细设计见[架构文档](docs/omniai/ARCHITECTURE.md)与[集成报告](docs/omniai/INTEGRATION_REPORT.md)。
 
 ## 功能与代码位置
 
@@ -61,7 +79,7 @@ flowchart TD
 | 分布式与多语言 | NATS、Go SSE、NestJS BFF、Spring Boot 连接器 | `services/omniai_realtime_go/`、`services/omniai_bff_nest/`、`services/omniai_enterprise_spring/` |
 | 部署与观测 | Compose profiles、Prometheus 配置和验证脚本 | `infra/omniai/`、`scripts/omniai/` |
 
-各服务可以分别学习和验证。运行某个实验模块，并不自动证明整个系统的吞吐量、召回质量或生产稳定性。
+各服务可以分别学习和验证。LangChain/LCEL、LlamaIndex、Milvus Lite、TensorFlow 等独立学习模块，尚不能直接视为 RAGFlow 主链路已经接入的组件。证据校验属于词项、数字和否定信号驱动的启发式规则，其 confidence 是规则分数；运行某个实验模块，也不自动证明整个系统的吞吐量、召回质量或生产稳定性。
 
 ## 快速开始
 
@@ -129,7 +147,7 @@ docker compose -f infra/omniai/docker-compose.yml --profile core up --build gate
 
 演示模式只用于检验应用交互和接口。要使用真实知识库，先按[RAGFlow 上游说明](RAGFLOW_README.md)准备 RAGFlow v0.27.2，确认后端 API、文档解析、嵌入模型和知识库可用，再通过环境变量配置 `OMNIOPS_MODE=ragflow`、`OMNIOPS_RAGFLOW_API_ROOT`、`OMNIOPS_RAGFLOW_API_KEY` 与 `OMNIOPS_RAGFLOW_CHAT_ID`。变量示例见 [`infra/omniai/.env.example`](infra/omniai/.env.example)；真实凭据不要提交到仓库。
 
-如要对比 OmniRAG 的检索改进，请遵循[本地执行顺序](docs/omnirag/FINAL_LOCAL_EXECUTION_PLAN.md)：先记录未改动的检索基线，再分别验证自适应检索、多模态检索及后续 Agent/工具能力。各阶段结果应分别归档，不能把静态检查当作真实检索质量结果。
+如要对比 OmniRAG 扩展，请参考[本地执行顺序](docs/omnirag/FINAL_LOCAL_EXECUTION_PLAN.md)与 [Phase 1 基线流程](docs/omnirag/PHASE1_RUNTIME_BASELINE.md)，但先核对文档所针对的阶段。当前快照已包含 Phase 2/3 核心改动，不能直接作为“纯上游、未修改”对照；应单独保留上游基线及数据、模型和配置，再分别验证扩展。各阶段结果单独归档，静态检查不替代真实质量实验。
 
 ## 学习路线
 
@@ -146,11 +164,15 @@ docker compose -f infra/omniai/docker-compose.yml --profile core up --build gate
 
 ## 验证状态与复现原则
 
-- 本仓库包含源码、配置模板、设计文档和部分版本化示例。此前在本地进行过静态检查、接口检查与部分独立服务运行验证，范围见[集成报告](docs/omniai/INTEGRATION_REPORT.md)。
-- 本机运行报告、基准结果、视觉索引、模型权重与私有数据未上传。仓库读者需要在自己的环境中重新运行相关检查，不能从源码存在推断实时质量指标。
-- OmniRAG 阶段文档中有早期的 `pre-local` 状态记录；阅读时应以对应阶段的具体实验数据和当前环境的重新验证为准。[Phase 1 基线流程](docs/omnirag/PHASE1_RUNTIME_BASELINE.md)与[Phase 3 多模态方案](docs/omnirag/PHASE3_MULTIMODAL_VERIFICATION_DESIGN.md)说明了如何建立可复现证据。
-- 若已有与 `scripts/omniai/dev.ps1` 约定一致的独立环境，可以运行 `powershell -File scripts/omniai/dev.ps1 validate` 执行项目验证脚本；该命令会运行自检并可能生成本地清单，不是只读检查。运行前请查看脚本及其依赖。
-- 尚未合入主项目的本机实验没有纳入本仓库。上线前仍需完成目标环境的功能、质量、性能和安全验证。
+1. **公开质量实验仍未完成。** [评估矩阵](artifacts/omnirag/phase6/evaluation_matrix.json)将真实 RAGFlow 基线、自适应检索、多模态检索、学习路由测试/保护集及真实系统观测记录为 `not_run`。小规模合成工具 smoke 和规则路由基线是离线检查，不是企业问答准确率、模型训练收益或生产质量指标。
+2. **V2 本地运行说明与公开证据分开阅读。** [集成报告](docs/omniai/INTEGRATION_REPORT.md)记载曾运行独立服务、Compose、基础模型推理与隔离 LoRA/QLoRA 合成训练，并明确适配器尚未通过保护集晋升、未接入产品。其引用的 `artifacts/runtime/FINAL_RUNTIME_REPORT.md` 不在当前公开快照中，相关原始运行报告也未随仓库提供；因此这些记录尚不能由仓库读者独立复核。
+3. **当前公开 CI 尚未通过。** 截至 2026-10-15，[OmniRAG CI 运行 36956925629](https://github.com/ytt070666/OmniForge-AI/actions/runs/36956925629)的 `static-contracts` 失败：[日志](https://github.com/ytt070666/OmniForge-AI/actions/runs/36956925629/job/110681845045)显示 Phase 1 哈希门禁发现 `rag/nlp/search.py` 与 `api/db/services/dialog_service.py` 已偏离原始基线，后续容器构建被跳过。这与当前已存在的 Phase 2/3 hook 对应；应区分纯基线与扩展版本并更新门禁，不能把当前哈希覆盖成“未修改基线”来掩盖差异。
+4. **历史状态文件存在阶段差异。** [早期发布状态](artifacts/omnirag/phase8/final_release_status.json)中的 `static_validation=pass`、`core_baseline=frozen_unmodified` 是早期 pre-local 记录，不适用于当前已修改核心文件的快照，也不能覆盖当前公开 CI 的失败结论。
+5. **演示与真实调用分别标注。** OmniOps demo 使用确定性答案，`retrieve_more` 等部分步骤是模拟；真实 RAGFlow 调用失败也可降级为演示结果。请结合响应中的 mode/degraded、执行轨迹和模型配置判断本次使用了哪条路径。独立服务中的 MockEmbedding、合成分类模型等也不代表真实语义质量。
+6. **重新验证需要保留原始证据。** 记录提交、依赖、数据划分、模型、配置和完整输出；在条件一致时比较 Recall@K、MRR、NDCG、引用支持与延迟。原始报告公开前应删除凭据和本机标识。没有产物的检查继续标注 `not_run`。
+7. 若已有与 `scripts/omniai/dev.ps1` 约定一致的独立环境，可以运行 `powershell -File scripts/omniai/dev.ps1 validate` 执行验证脚本。该命令会运行自检并可能生成本地清单；使用前请查看脚本、依赖和上述哈希门禁问题。
+
+本 README 修正的是功能归属和证据表述。尚未合入的本地实验、未公开运行报告，以及没有对应数据的性能结论均未作为已验证成果；目标环境的功能、质量、性能与安全验证仍需分别完成。
 
 ## 数据、安全与许可
 
